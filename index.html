@@ -1,168 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CandleLogic AI - Signal Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CandleLogic AI - Secure Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #0e0e15;
-      color: #f1f1f1;
+    * {
       margin: 0;
-      padding: 20px;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
     }
 
-    h1 {
-      text-align: center;
-      color: #4fc3f7;
-    }
-
-    .container {
-      max-width: 600px;
-      margin: auto;
-      background: #1c1c2b;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 0 20px #00000066;
-    }
-
-    label {
-      display: block;
-      margin-top: 10px;
-      font-weight: 500;
-    }
-
-    select, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 6px;
-      border-radius: 8px;
-      border: none;
-      background-color: #2a2a3d;
-      color: white;
-      font-size: 16px;
-    }
-
-    .candles {
+    body {
+      background: #0f172a;
+      color: #e2e8f0;
       display: flex;
-      justify-content: space-between;
-      margin-top: 10px;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
     }
 
-    .candles select {
-      width: 18%;
+    .login-container {
+      background: #1e293b;
+      padding: 2rem;
+      border-radius: 1rem;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .login-container h2 {
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-size: 1.5rem;
+      color: #38bdf8;
+    }
+
+    input[type="password"] {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: none;
+      border-radius: 0.5rem;
+      background: #334155;
+      color: #e2e8f0;
+      font-size: 1rem;
     }
 
     button {
-      background-color: #4fc3f7;
+      width: 100%;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 0.5rem;
+      background: #38bdf8;
+      color: #0f172a;
+      font-weight: 600;
       cursor: pointer;
-      margin-top: 20px;
+      transition: background 0.3s ease;
     }
 
     button:hover {
-      background-color: #29b6f6;
+      background: #0ea5e9;
     }
 
-    .output {
-      margin-top: 20px;
-      background-color: #292944;
-      padding: 15px;
-      border-radius: 8px;
-      font-family: monospace;
-      white-space: pre-wrap;
+    .hidden {
+      display: none;
+    }
+
+    .main-app {
+      text-align: center;
+    }
+
+    .pair-select,
+    .candles-select,
+    .time-select {
+      margin: 1rem 0;
+    }
+
+    select,
+    .candles-select select {
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      background: #334155;
+      color: white;
+      border: none;
+      margin-right: 0.25rem;
     }
   </style>
 </head>
+
 <body>
-  <h1>📊 CandleLogic AI</h1>
-  <div class="container">
-    <label>Market Type</label>
-    <select id="marketType">
-      <option>Real</option>
-      <option>OTC</option>
-      <option>Binary</option>
-    </select>
+  <div class="login-container" id="login-box">
+    <h2>🔒 Enter Password</h2>
+    <input type="password" id="password" placeholder="Enter Password" />
+    <button onclick="checkPassword()">Login</button>
+  </div>
 
-    <label>Select Pair</label>
-    <select id="pair">
-      <option>EUR/USD</option>
-      <option>USD/JPY</option>
-      <option>GBP/JPY</option>
-      <option>EUR/GBP</option>
-      <option>USD/CHF</option>
-      <option>USD/CAD</option>
-      <option>USD/INR (OTC)</option>
-      <option>USD/BDT (OTC)</option>
-      <option>GBP/USD (OTC)</option>
-      <option>USD/PKR (OTC)</option>
-      <option>EUR/NZD (OTC)</option>
-      <option>NZD/USD (OTC)</option>
-      <!-- Add more real + OTC here -->
-    </select>
+  <div class="login-container hidden" id="main-app">
+    <h2>CandleLogic AI 🧠</h2>
 
-    <label>Timezone</label>
-    <select id="timezone">
-      <option>Asia/Dhaka</option>
-      <option>Asia/Kolkata</option>
-      <option>Asia/Dubai</option>
-      <option>Asia/Jakarta</option>
-      <option>Europe/London</option>
-      <option>Europe/Moscow</option>
-      <option>America/New_York</option>
-      <option>America/Sao_Paulo</option>
-      <option>Africa/Lagos</option>
-      <option>Asia/Singapore</option>
-      <option>Asia/Manila</option>
-      <option>Asia/Tokyo</option>
-      <option>Asia/Kuala_Lumpur</option>
-      <option>Asia/Hong_Kong</option>
-      <option>Etc/GMT</option>
-      <!-- Add more timezones -->
-    </select>
-
-    <label>Last 5 Candles (G=Green, R=Red)</label>
-    <div class="candles">
-      <select id="c1"><option>G</option><option>R</option></select>
-      <select id="c2"><option>G</option><option>R</option></select>
-      <select id="c3"><option>G</option><option>R</option></select>
-      <select id="c4"><option>G</option><option>R</option></select>
-      <select id="c5"><option>G</option><option>R</option></select>
+    <div class="pair-select">
+      <label>Market:</label>
+      <select>
+        <option>Binary</option>
+        <option>Real</option>
+        <option>OTC</option>
+      </select>
+      <select>
+        <option>EUR/USD</option>
+        <option>GBP/JPY</option>
+        <option>BTC/USD</option>
+        <option>USD/JPY</option>
+        <option>Gold</option>
+      </select>
     </div>
 
-    <button onclick="generateSignal()">🔍 Generate Signal</button>
-
-    <div class="output" id="outputArea">
-      Signal will appear here...
+    <div class="candles-select">
+      <label>Last 5 Candles:</label><br />
+      <select><option>🟥</option><option>🟩</option></select>
+      <select><option>🟥</option><option>🟩</option></select>
+      <select><option>🟥</option><option>🟩</option></select>
+      <select><option>🟥</option><option>🟩</option></select>
+      <select><option>🟥</option><option>🟩</option></select>
     </div>
+
+    <div class="time-select">
+      <label>Timezone:</label>
+      <select>
+        <option value="Asia/Dhaka">Asia/Dhaka (GMT+6)</option>
+        <option value="Asia/Kolkata">Asia/Kolkata (GMT+5:30)</option>
+        <option value="UTC">UTC</option>
+        <option value="Europe/London">Europe/London</option>
+        <option value="America/New_York">America/New York</option>
+      </select>
+    </div>
+
+    <button>Generate Signal</button>
   </div>
 
   <script>
-    function getBDTime(tz) {
-      return new Date().toLocaleString("en-GB", { timeZone: tz, hour12: false });
-    }
+    const PASSWORD = "11115";
 
-    function generateSignal() {
-      const candles = [c1.value, c2.value, c3.value, c4.value, c5.value];
-      const greens = candles.filter(c => c === 'G').length;
-      const reds = candles.filter(c => c === 'R').length;
-
-      let signal = 'WAIT';
-      if (greens >= 4) signal = 'PUT';
-      else if (reds >= 4) signal = 'CALL';
-
-      const output = `
-📊 𝗖𝗮𝗻𝗱𝗹𝗲𝗟𝗼𝗴𝗶𝗰 𝗔𝗜 – 𝟭 𝗠𝗶𝗻𝘂𝘁𝗲 𝗧𝗿𝗮𝗱𝗲
-━━━━━━━━━━━━━━
-📍 𝗣𝗮𝗶𝗿: ${pair.value}
-🕐 𝗧𝗶𝗺𝗲: ${getBDTime(timezone.value)}
-📶 𝗦𝗶𝗴𝗻𝗮𝗹: ${signal}
-━━━━━━━━━━━━━━
-📢 𝗡𝗲𝘅𝘁 𝗖𝗮𝗻𝗱𝗹𝗲 𝗘𝗻𝘁𝗿𝘆!
-      `.trim();
-
-      document.getElementById("outputArea").innerText = output;
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      if (input === PASSWORD) {
+        document.getElementById("login-box").classList.add("hidden");
+        document.getElementById("main-app").classList.remove("hidden");
+      } else {
+        alert("Wrong password! Please try again.");
+      }
     }
   </script>
 </body>
+
 </html>
