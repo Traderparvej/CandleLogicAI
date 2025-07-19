@@ -8,199 +8,175 @@
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #0d1117;
-      color: #e6edf3;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+      background: #0b0f15;
+      color: #fff;
       padding: 20px;
     }
-    h1 {
-      margin-top: 10px;
-      font-size: 28px;
-      color: #58a6ff;
-    }
-    .container {
-      background-color: #161b22;
-      border: 1px solid #30363d;
+    h2 { color: #00ffcc; text-align: center; }
+    .section {
+      background: #111722;
+      padding: 20px;
+      margin-bottom: 20px;
       border-radius: 10px;
-      padding: 20px;
-      max-width: 500px;
-      width: 100%;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      box-shadow: 0 0 8px rgba(0,255,200,0.1);
     }
-    .row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    }
+    .section label { display: block; margin-bottom: 8px; color: #ccc; }
     select, button {
-      width: 48%;
-      padding: 8px;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
+      width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 6px;
+      border: none; background: #1c2530; color: #fff; font-size: 16px;
     }
-    .red { background-color: #e74c3c; color: white; }
-    .green { background-color: #2ecc71; color: white; }
-    button.generate-btn {
-      width: 100%;
-      background-color: #58a6ff;
-      color: white;
-      margin-top: 10px;
+    .candle-select {
+      display: flex; flex-wrap: wrap; gap: 10px;
     }
+    .candle-select select { flex: 1 1 48%; }
     .output {
-      background-color: #0d1117;
-      border: 1px solid #30363d;
-      border-radius: 10px;
-      padding: 15px;
-      margin-top: 20px;
+      background: #0f141c; padding: 20px; border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,255,200,0.15); margin-top: 20px;
     }
+    .output p { margin: 8px 0; font-size: 16px; }
+    .output .valid { color: #00ff88; }
+    .output .invalid { color: #ff4c4c; }
     .copy-btn, .rules-link {
-      background-color: #21262d;
-      color: #c9d1d9;
-      padding: 8px;
-      margin-top: 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      border: none;
+      display: block; margin-top: 10px; background: #00ffcc; color: #000;
+      padding: 10px; border: none; border-radius: 5px; text-align: center;
+      text-decoration: none; font-weight: bold; cursor: pointer;
     }
-    .copy-btn:hover, .rules-link:hover {
-      background-color: #30363d;
-    }
+    .rules-link { background: #007c99; color: #fff; }
     #timerDisplay {
-      margin-top: 10px;
-      font-size: 18px;
-      color: #ffa657;
+      text-align: center; font-size: 20px; color: #facc15;
+      margin-top: 10px; font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <h1>CandleLogic AI – Signal</h1>
-  <div class="container">
-    <div class="row">
-      <select id="candle1">
-        <option value="">Select Candle 1</option>
-        <option value="green">🟢 Green</option>
-        <option value="red">🔴 Red</option>
-      </select>
-      <select id="candle2">
-        <option value="">Select Candle 2</option>
-        <option value="green">🟢 Green</option>
-        <option value="red">🔴 Red</option>
-      </select>
+  <h2>TraderParvej CandleLogic AI – Signal</h2>
+
+  <div class="section">
+    <label>Market</label>
+    <select id="market" onchange="loadPairs()">
+      <option value="binary">Binary</option>
+      <option value="otc">OTC</option>
+      <option value="real">Real</option>
+    </select>
+
+    <label>Timezone</label>
+    <select id="timezone">
+      <option value="+0600">GMT+6 (BD Time)</option>
+      <option value="+0530">GMT+5:30 (India)</option>
+      <option value="+0000">GMT (UTC)</option>
+    </select>
+
+    <label>Pair</label>
+    <select id="pair"></select>
+
+    <label>Timeframe</label>
+    <select id="timeframe">
+      <option value="1">1 Minute</option>
+      <option value="3">3 Minutes</option>
+      <option value="5">5 Minutes</option>
+    </select>
+  </div>
+
+  <div class="section">
+    <label>Last 5 Candles</label>
+    <div class="candle-select">
+      <select id="c1"><option value="">Select</option><option value="green">🟢 Green</option><option value="red">🔴 Red</option></select>
+      <select id="c2"><option value="">Select</option><option value="green">🟢 Green</option><option value="red">🔴 Red</option></select>
+      <select id="c3"><option value="">Select</option><option value="green">🟢 Green</option><option value="red">🔴 Red</option></select>
+      <select id="c4"><option value="">Select</option><option value="green">🟢 Green</option><option value="red">🔴 Red</option></select>
+      <select id="c5"><option value="">Select</option><option value="green">🟢 Green</option><option value="red">🔴 Red</option></select>
     </div>
-    <div class="row">
-      <select id="candle3">
-        <option value="">Select Candle 3</option>
-        <option value="green">🟢 Green</option>
-        <option value="red">🔴 Red</option>
-      </select>
-      <select id="candle4">
-        <option value="">Select Candle 4</option>
-        <option value="green">🟢 Green</option>
-        <option value="red">🔴 Red</option>
-      </select>
-    </div>
-    <div class="row">
-      <select id="candle5">
-        <option value="">Select Candle 5</option>
-        <option value="green">🟢 Green</option>
-        <option value="red">🔴 Red</option>
-      </select>
-      <select id="runningCandle">
-        <option value="">Running Candle</option>
-        <option value="green">🟢 Green</option>
-        <option value="red">🔴 Red</option>
-      </select>
-    </div>
-    <button class="generate-btn" onclick="generateSignal()" id="genBtn">🚀 Generate Signal</button>
+
+    <label>Running Candle</label>
+    <select id="running">
+      <option value="">Select</option>
+      <option value="green">🟢 Green</option>
+      <option value="red">🔴 Red</option>
+    </select>
+
+    <button onclick="generateSignal()" id="genBtn">Generate Signal</button>
     <div id="timerDisplay"></div>
-    <div class="output" id="signalOutput" style="display:none;">
-      <h3>✅ Signal Output Preview</h3>
-      <p id="signalLine"></p>
-      <p id="nextCandleLine"></p>
-      <p id="countLine"></p>
-      <p id="runningLine"></p>
-      <p id="statusLine"></p>
-      <p id="ruleLine"></p>
-      <button class="copy-btn" onclick="copySignal()">📋 Copy Signal</button>
-      <button class="rules-link" onclick="resetSignal()">🔁 Reset</button>
-    </div>
+  </div>
+
+  <div class="output" id="signalOutput" style="display:none;">
+    <h3>✅ Signal Output Preview</h3>
+    <p id="signalLine">📱 Signal Type: ⬇ PUT</p>
+    <p id="nextCandleLine">➡️ Next Candle Time: 14:33</p>
+    <p id="countLine">🟢 Green: 2      🔴 Red: 3</p>
+    <p id="runningLine">📶 Running Candle: 🟢 GREEN</p>
+    <p id="statusLine">📌 Status: ✅ VALID</p>
+    <p id="ruleLine">✅ Matches 1st Step MTG Rule</p>
+    <button class="copy-btn" onclick="copySignal()">📋 Copy Signal</button>
+    <a href="#" class="rules-link">📘 Signal Rules</a>
   </div>
 
   <script>
-    let timer;
+    const otcPairs = ["USD/BRL (OTC)","EUR/USD (OTC)","USD/ARS (OTC)","USD/BDT (OTC)","USD/MXN (OTC)","USD/PKR (OTC)","USD/JPY (OTC)","EUR/CAD (OTC)","USD/IDR (OTC)","USD/TRY (OTC)","AUD/CAD (OTC)","CAD/JPY (OTC)","CHF/JPY (OTC)","EUR/AUD (OTC)","EUR/CHF (OTC)","GBP/AUD (OTC)","GBP/CAD (OTC)","GBP/CHF (OTC)","GBP/JPY (OTC)","NZD/CAD (OTC)","NZD/JPY (OTC)","NZD/USD (OTC)"];
+    const realPairs = ["EUR/USD","GBP/USD","USD/JPY","AUD/USD","NZD/USD","USD/CHF","USD/CAD","GBP/JPY","AUD/CHF"];
+
+    function loadPairs() {
+      const market = document.getElementById("market").value;
+      const pairSelect = document.getElementById("pair");
+      let pairs = [];
+      if (market === "otc") pairs = otcPairs;
+      else if (market === "real") pairs = realPairs;
+      else pairs = pairList.split('\n').map(opt => opt.trim()).filter(opt => opt.includes('<option'));
+
+      pairSelect.innerHTML = "";
+      pairs.forEach(pair => {
+        const opt = document.createElement("option");
+        opt.value = pair;
+        opt.textContent = pair;
+        pairSelect.appendChild(opt);
+      });
+    }
+
     function generateSignal() {
-      const candles = [
-        document.getElementById('candle1').value,
-        document.getElementById('candle2').value,
-        document.getElementById('candle3').value,
-        document.getElementById('candle4').value,
-        document.getElementById('candle5').value
-      ];
-      const running = document.getElementById('runningCandle').value;
-
-      const greens = candles.filter(c => c === 'green').length;
-      const reds = candles.filter(c => c === 'red').length;
-
-      let signal = 'WAIT';
-      let valid = true;
-
-      if (candles.includes('') || running === '') {
-        alert('Please select all candles including running candle.');
-        return;
-      }
-
-      if (greens > reds && running !== 'green') signal = 'CALL';
-      else if (reds > greens && running !== 'red') signal = 'PUT';
-      else valid = false;
-
+      const candles = ["c1","c2","c3","c4","c5"].map(id => document.getElementById(id).value);
+      const running = document.getElementById("running").value;
+      if (candles.includes("") || !running) return alert("Select all candles and running candle.");
+      const green = candles.filter(c => c === 'green').length;
+      const red = candles.filter(c => c === 'red').length;
+      const signal = green > red ? '⬇ PUT' : red > green ? '⬆ CALL' : 'WAIT';
+      const valid = candles[4] !== running;
       const now = new Date();
-      const next = new Date(now.getTime() + 60000);
-      const timeStr = now.toTimeString().slice(0,5);
-      const nextStr = next.toTimeString().slice(0,5);
+      now.setMinutes(now.getMinutes() + 1);
+      const nextTime = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+      document.getElementById("signalLine").textContent = `📱 Signal Type: ${signal}`;
+      document.getElementById("nextCandleLine").textContent = `➡️ Next Candle Time: ${nextTime}`;
+      document.getElementById("countLine").textContent = `🟢 Green: ${green}      🔴 Red: ${red}`;
+      document.getElementById("runningLine").textContent = `📶 Running Candle: ${running === 'green' ? '🟢 GREEN' : '🔴 RED'}`;
+      document.getElementById("statusLine").textContent = `📌 Status: ${valid ? '✅ VALID' : '❌ INVALID'}`;
+      document.getElementById("ruleLine").textContent = valid ? '✅ Matches 1st Step MTG Rule' : '❌ Doesn\'t match Running Candle';
+      document.getElementById("signalOutput").style.display = 'block';
+      startCountdown();
+    }
 
-      document.getElementById('signalLine').textContent = `📱 Signal Type: ${signal === 'CALL' ? '⬆ CALL' : signal === 'PUT' ? '⬇ PUT' : '⏸ WAIT'}`;
-      document.getElementById('nextCandleLine').textContent = `➡️ Next Candle Time: ${nextStr}`;
-      document.getElementById('countLine').textContent = `🟢 Green: ${greens}      🔴 Red: ${reds}`;
-      document.getElementById('runningLine').textContent = `📶 Running Candle: ${running === 'green' ? '🟢 GREEN' : '🔴 RED'}`;
-      document.getElementById('statusLine').textContent = `📌 Status: ${valid ? '✅ VALID' : '❌ INVALID'}`;
-      document.getElementById('ruleLine').textContent = valid ? '✅ Matches 1st Step MTG Rule' : '⚠️ Last Candle Matches Running Candle';
-
-      document.getElementById('signalOutput').style.display = 'block';
-      document.getElementById('genBtn').disabled = true;
-
-      let countdown = 60;
-      timer = setInterval(() => {
-        countdown--;
-        document.getElementById('timerDisplay').textContent = `⏳ Next Signal In: ${countdown}s`;
-        if (countdown <= 0) {
-          clearInterval(timer);
-          document.getElementById('timerDisplay').textContent = '';
-          document.getElementById('genBtn').disabled = false;
+    function startCountdown() {
+      const timeframe = parseInt(document.getElementById("timeframe").value);
+      const genBtn = document.getElementById("genBtn");
+      const display = document.getElementById("timerDisplay");
+      let seconds = timeframe * 60;
+      genBtn.disabled = true;
+      const interval = setInterval(() => {
+        const m = Math.floor(seconds / 60);
+        const s = seconds % 60;
+        display.textContent = `🕐 Next signal in: ${m}:${s.toString().padStart(2,'0')} mins`;
+        if (--seconds < 0) {
+          clearInterval(interval);
+          genBtn.disabled = false;
+          display.textContent = "✅ You can generate signal now.";
         }
       }, 1000);
     }
 
     function copySignal() {
-      const signalText = `📡 Signal Type: ${document.getElementById('signalLine').textContent.split(': ')[1]}\n➡️ Next Candle Time: ${document.getElementById('nextCandleLine').textContent.split(': ')[1]}\n${document.getElementById('countLine').textContent}\n${document.getElementById('runningLine').textContent}\n${document.getElementById('statusLine').textContent}`;
-      navigator.clipboard.writeText(signalText).then(() => alert('Signal Copied!'));
+      const text = document.getElementById("signalOutput").innerText;
+      navigator.clipboard.writeText(text).then(() => alert("Signal copied!"));
     }
 
-    function resetSignal() {
-      clearInterval(timer);
-      document.getElementById("signalOutput").style.display = 'none';
-      document.getElementById("signalLine").textContent = '';
-      document.getElementById("nextCandleLine").textContent = '';
-      document.getElementById("countLine").textContent = '';
-      document.getElementById("runningLine").textContent = '';
-      document.getElementById("statusLine").textContent = '';
-      document.getElementById("ruleLine").textContent = '';
-      document.getElementById("timerDisplay").textContent = '';
-      document.getElementById("genBtn").disabled = false;
-    }
+    loadPairs();
   </script>
 </body>
 </html>
