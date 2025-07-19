@@ -1,159 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CandleLogic AI - Secure Login</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
-    }
-
-    body {
-      background: #0f172a;
-      color: #e2e8f0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-
-    .login-container {
-      background: #1e293b;
-      padding: 2rem;
-      border-radius: 1rem;
-      width: 100%;
-      max-width: 400px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-    }
-
-    .login-container h2 {
-      margin-bottom: 1.5rem;
-      text-align: center;
-      font-size: 1.5rem;
-      color: #38bdf8;
-    }
-
-    input[type="password"] {
-      width: 100%;
-      padding: 0.75rem;
-      margin-bottom: 1rem;
-      border: none;
-      border-radius: 0.5rem;
-      background: #334155;
-      color: #e2e8f0;
-      font-size: 1rem;
-    }
-
-    button {
-      width: 100%;
-      padding: 0.75rem;
-      border: none;
-      border-radius: 0.5rem;
-      background: #38bdf8;
-      color: #0f172a;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    button:hover {
-      background: #0ea5e9;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .main-app {
-      text-align: center;
-    }
-
-    .pair-select,
-    .candles-select,
-    .time-select {
-      margin: 1rem 0;
-    }
-
-    select,
-    .candles-select select {
-      padding: 0.5rem;
-      border-radius: 0.5rem;
-      background: #334155;
-      color: white;
-      border: none;
-      margin-right: 0.25rem;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CandleLogic AI - Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
+<body class="bg-gray-900 text-white flex items-center justify-center h-screen font-sans">
+  <div class="bg-gray-800 p-8 rounded-xl shadow-xl w-full max-w-md text-center">
+    <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Candle Icon" class="w-20 mx-auto mb-4" />
+    <h1 class="text-2xl font-bold mb-2">🔒 Welcome to <span class="text-yellow-400">CandleLogic AI</span></h1>
+    <p class="mb-4 text-sm text-gray-300">World's Smartest 5-Candle Signal System</p>
 
-<body>
-  <div class="login-container" id="login-box">
-    <h2>🔒 Enter Password</h2>
-    <input type="password" id="password" placeholder="Enter Password" />
-    <button onclick="checkPassword()">Login</button>
-  </div>
+    <input id="passwordInput" type="password" placeholder="🔐 Enter Your Password..." class="w-full p-3 rounded bg-gray-700 border border-gray-600 mb-4 focus:outline-none focus:ring-2 focus:ring-yellow-400">
 
-  <div class="login-container hidden" id="main-app">
-    <h2>CandleLogic AI 🧠</h2>
+    <button onclick="checkPassword()" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-6 rounded-full transition">🔓 Unlock Access</button>
 
-    <div class="pair-select">
-      <label>Market:</label>
-      <select>
-        <option>Binary</option>
-        <option>Real</option>
-        <option>OTC</option>
-      </select>
-      <select>
-        <option>EUR/USD</option>
-        <option>GBP/JPY</option>
-        <option>BTC/USD</option>
-        <option>USD/JPY</option>
-        <option>Gold</option>
-      </select>
-    </div>
-
-    <div class="candles-select">
-      <label>Last 5 Candles:</label><br />
-      <select><option>🟥</option><option>🟩</option></select>
-      <select><option>🟥</option><option>🟩</option></select>
-      <select><option>🟥</option><option>🟩</option></select>
-      <select><option>🟥</option><option>🟩</option></select>
-      <select><option>🟥</option><option>🟩</option></select>
-    </div>
-
-    <div class="time-select">
-      <label>Timezone:</label>
-      <select>
-        <option value="Asia/Dhaka">Asia/Dhaka (GMT+6)</option>
-        <option value="Asia/Kolkata">Asia/Kolkata (GMT+5:30)</option>
-        <option value="UTC">UTC</option>
-        <option value="Europe/London">Europe/London</option>
-        <option value="America/New_York">America/New York</option>
-      </select>
-    </div>
-
-    <button>Generate Signal</button>
+    <p class="mt-6 text-sm text-gray-400">Need password? Contact 👉 <a href="https://t.me/QXParvej" class="text-yellow-300 underline">@QXParvej</a></p>
   </div>
 
   <script>
-    const PASSWORD = "11115";
-
     function checkPassword() {
-      const input = document.getElementById("password").value;
-      if (input === PASSWORD) {
-        document.getElementById("login-box").classList.add("hidden");
-        document.getElementById("main-app").classList.remove("hidden");
+      const password = document.getElementById("passwordInput").value;
+      if (password === "11115") {
+        window.location.href = "signal.html";
       } else {
-        alert("Wrong password! Please try again.");
+        alert("Incorrect password. Please try again.");
       }
     }
   </script>
 </body>
-
 </html>
