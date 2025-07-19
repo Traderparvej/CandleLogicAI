@@ -5,84 +5,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CandleLogic AI – Signal Generator</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
-      margin: 0;
-      padding: 20px;
-      font-family: Arial, sans-serif;
+      background-color: #0b0f15;
       color: #ffffff;
-      background-color: #0d1117; /* Login page এর মত dark navy background */
+      font-family: Arial, sans-serif;
+      padding: 40px;
     }
 
     h1 {
       text-align: center;
-      margin-bottom: 25px;
-      color: #00b894;
-      font-size: 24px;
+      margin-bottom: 30px;
+      color: #00ffd5;
     }
 
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
 
     label {
       display: block;
       font-weight: bold;
-      margin-bottom: 6px;
-      font-size: 15px;
+      margin-bottom: 8px;
+      font-size: 16px;
     }
 
     select, .pair-box, .candle-select {
       width: 100%;
       padding: 10px;
       border-radius: 8px;
-      border: 1px solid #ccc;
-      background-color: #f0f0f0;
-      color: #000000;
-      font-size: 15px;
+      border: none;
+      background-color: #1b2a3a;
+      color: #ffffff;
+      font-size: 16px;
     }
 
     .candle-boxes {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      justify-content: space-between;
+      gap: 12px;
     }
 
     .candle-select {
-      width: calc(50% - 5px);
-    }
-
-    .candle-select.center {
-      width: 100%;
+      width: calc(50% - 6px);
     }
 
     .running-candle-options {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+      gap: 12px;
       margin-top: 10px;
     }
 
     .candle-option {
-      flex: 1 1 45%;
-      text-align: center;
-      padding: 10px;
+      padding: 10px 20px;
       border-radius: 8px;
       border: 2px solid transparent;
       cursor: pointer;
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 500;
       transition: all 0.3s;
-      background-color: #f0f0f0;
-      color: #000;
+      background-color: #1b2a3a;
+      color: #fff;
     }
 
     .candle-option:hover {
-      border-color: #00b894;
+      border-color: #00ffd5;
     }
 
     input[type="radio"] {
@@ -101,19 +87,26 @@
       border-color: #2ecc71;
     }
 
-    @media screen and (min-width: 768px) {
-      body {
-        padding: 40px;
-      }
+    #generateBtn {
+      padding: 12px 20px;
+      font-size: 16px;
+      background-color: #00ffd5;
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 25px;
+      display: block;
+      width: 100%;
+    }
 
-      h1 {
-        font-size: 30px;
-      }
-
-      .candle-option {
-        flex: none;
-        width: 150px;
-      }
+    .output {
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #1e2b3a;
+      border-left: 6px solid #00ffd5;
+      font-size: 18px;
     }
   </style>
 </head>
@@ -123,16 +116,16 @@
 
   <div class="form-group">
     <label>🌐 Time Zone:</label>
-    <select>
-      <option>GMT +6 (Bangladesh)</option>
-      <option>GMT +5:30 (India)</option>
-      <option>GMT +7</option>
+    <select id="timezone">
+      <option value="6">GMT +6 (Bangladesh)</option>
+      <option value="5.5">GMT +5:30 (India)</option>
+      <option value="7">GMT +7</option>
     </select>
   </div>
 
   <div class="form-group">
     <label>🧭 Market:</label>
-    <select>
+    <select id="market">
       <option>Real Market</option>
       <option>OTC Market</option>
     </select>
@@ -140,7 +133,7 @@
 
   <div class="form-group">
     <label>⏱️ Time Frame:</label>
-    <select>
+    <select id="timeframe">
       <option>1 Minute</option>
       <option>3 Minute</option>
       <option>5 Minute</option>
@@ -149,7 +142,7 @@
 
   <div class="form-group">
     <label>💹 Pair Selection:</label>
-    <select class="pair-box">
+    <select class="pair-box" id="pair">
       <option>EUR/USD</option>
       <option>USD/JPY</option>
       <option>AUD/CAD</option>
@@ -160,24 +153,24 @@
     <label>🕯️ Select Last 5 Candles:</label>
     <div class="candle-boxes">
       <select class="candle-select">
-        <option>🔴 Red</option>
-        <option>🟢 Green</option>
+        <option value="red">🔴 Red</option>
+        <option value="green">🟢 Green</option>
       </select>
       <select class="candle-select">
-        <option>🔴 Red</option>
-        <option>🟢 Green</option>
+        <option value="red">🔴 Red</option>
+        <option value="green">🟢 Green</option>
       </select>
       <select class="candle-select">
-        <option>🔴 Red</option>
-        <option>🟢 Green</option>
+        <option value="red">🔴 Red</option>
+        <option value="green">🟢 Green</option>
       </select>
       <select class="candle-select">
-        <option>🔴 Red</option>
-        <option>🟢 Green</option>
+        <option value="red">🔴 Red</option>
+        <option value="green">🟢 Green</option>
       </select>
-      <select class="candle-select center">
-        <option>🔴 Red</option>
-        <option>🟢 Green</option>
+      <select class="candle-select">
+        <option value="red">🔴 Red</option>
+        <option value="green">🟢 Green</option>
       </select>
     </div>
   </div>
@@ -193,6 +186,39 @@
     </div>
   </div>
 
+  <button id="generateBtn">🚀 Generate Signal</button>
+
+  <div id="output" class="output" style="display:none;"></div>
+
+  <script>
+    document.getElementById("generateBtn").addEventListener("click", function () {
+      const candles = Array.from(document.querySelectorAll(".candle-select"))
+        .map(select => select.value);
+      const redCount = candles.filter(c => c === "red").length;
+      const greenCount = candles.filter(c => c === "green").length;
+
+      const runningCandle = document.querySelector("input[name='runningCandle']:checked");
+      if (!runningCandle) return alert("Please select the running candle.");
+
+      const timezoneOffset = parseFloat(document.getElementById("timezone").value);
+      const nowUTC = new Date();
+      const localTime = new Date(nowUTC.getTime() + timezoneOffset * 60 * 60 * 1000);
+
+      let signal = "WAIT";
+      if (redCount >= 3 && runningCandle.value === "green") signal = "PUT";
+      else if (greenCount >= 3 && runningCandle.value === "red") signal = "CALL";
+
+      const output = document.getElementById("output");
+      output.style.display = "block";
+      output.innerHTML = `
+        <strong>✅ Signal:</strong> ${signal}<br>
+        <strong>🕒 Time:</strong> ${localTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}<br>
+        <strong>🔁 Next Candle:</strong> ${new Date(localTime.getTime() + 60000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}<br>
+        <strong>💹 Pair:</strong> ${document.getElementById("pair").value}<br>
+        <strong>🧭 Market:</strong> ${document.getElementById("market").value}<br>
+        <strong>⏱️ Time Frame:</strong> ${document.getElementById("timeframe").value}
+      `;
+    });
+  </script>
 </body>
 </html>
-
