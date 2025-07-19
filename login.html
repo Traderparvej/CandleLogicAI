@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CandleLogic AI - Login</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="login-container">
+    <div class="animated-logo">
+      <div class="candle-body"><div class="wick"></div><div class="flame"></div></div>
+      <h1>CandleLogic <span>AI</span></h1>
+    </div>
+    <form class="login-form" onsubmit="return checkPassword()">
+      <input type="password" id="password" placeholder="Enter Password" required />
+      <button type="submit">Login</button>
+    </form>
+    <p style="margin-top:10px;">🔐 পাবেন পাসওয়ার্ড 👉 <a href="https://t.me/QXParvej" target="_blank">@QXParvej</a></p>
+  </div>
+
+  <script>
+    function checkPassword(){
+      const pw = document.getElementById('password').value;
+      if (pw === '11115') return true;
+      alert('🔴 ভুল পাসওয়ার্ড!');
+      return false;
+    }
+  </script>
+</body>
+</html>
