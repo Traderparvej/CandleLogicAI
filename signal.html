@@ -4,247 +4,173 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CandleLogic AI – Signal Generator</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
     body {
-      background: #0f172a;
-      color: #fff;
-      font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      padding: 20px;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0b1120;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-
     .container {
-      max-width: 500px;
-      margin: auto;
       background: #1e293b;
-      padding: 20px;
+      padding: 30px;
       border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.15);
+      width: 320px;
     }
-
-    h2 {
+    .container h2 {
       text-align: center;
-      margin-bottom: 20px;
       color: #38bdf8;
+      margin-bottom: 20px;
     }
-
-    label {
-      display: block;
-      margin: 10px 0 5px;
+    .container h2::before {
+      content: "🧠 ";
     }
-
+    select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 7px 0;
+      border: none;
+      border-radius: 5px;
+      font-size: 15px;
+    }
     select {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
       background: #334155;
-      color: #fff;
-      font-size: 16px;
-      margin-bottom: 10px;
+      color: white;
     }
-
-    .button {
-      background: #22c55e;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-size: 16px;
-      width: 100%;
-      color: #fff;
+    button {
+      background-color: #22c55e;
+      color: white;
+      font-weight: bold;
       cursor: pointer;
     }
-
-    .button:hover {
-      background: #16a34a;
+    button:disabled {
+      background-color: gray;
+      cursor: not-allowed;
     }
-
-    .signal-output {
-      margin-top: 25px;
+    .output {
+      margin-top: 20px;
       background: #0f172a;
-      padding: 20px;
-      border: 1px solid #334155;
-      border-radius: 12px;
-    }
-
-    .output-box {
-      background: #1e293b;
       padding: 15px;
-      border-radius: 10px;
-      text-align: center;
-      position: relative;
-    }
-
-    .signal-type {
-      font-size: 24px;
-      font-weight: bold;
-    }
-
-    .put {
-      color: #f87171;
-    }
-
-    .call {
-      color: #4ade80;
-    }
-
-    .copy-button {
-      margin-top: 10px;
-      background: #3b82f6;
-      padding: 8px 12px;
-      border-radius: 6px;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-    }
-
-    .copy-button:hover {
-      background: #2563eb;
-    }
-
-    .rules {
-      font-size: 14px;
-      margin-top: 15px;
-      padding: 10px;
-      background: #1e293b;
-      border-left: 4px solid #38bdf8;
       border-radius: 8px;
+      text-align: center;
+      display: none;
     }
-
-    .status-valid {
-      color: #4ade80;
+    .signal-type {
+      font-size: 22px;
       font-weight: bold;
+      margin-bottom: 8px;
     }
-
-    .status-invalid {
-      color: #f87171;
-      font-weight: bold;
-    }
-
-    .output-label {
-      font-size: 14px;
-      color: #94a3b8;
-    }
-
-    .output-value {
-      font-size: 18px;
-      margin-top: 4px;
+    .copy-btn {
+      background-color: #2563eb;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-
   <div class="container">
-    <h2>🧠 CandleLogic AI</h2>
+    <h2>CandleLogic AI</h2>
 
     <label>Last 5 Candle Colors:</label>
-    <select id="candle1">
+    <select id="c1">
       <option value="">Select Candle 1</option>
-      <option value="red">🔴 Red</option>
-      <option value="green">🟢 Green</option>
+      <option value="R">🔴 Red</option>
+      <option value="G">🟢 Green</option>
     </select>
-    <select id="candle2">
+    <select id="c2">
       <option value="">Select Candle 2</option>
-      <option value="red">🔴 Red</option>
-      <option value="green">🟢 Green</option>
+      <option value="R">🔴 Red</option>
+      <option value="G">🟢 Green</option>
     </select>
-    <select id="candle3">
+    <select id="c3">
       <option value="">Select Candle 3</option>
-      <option value="red">🔴 Red</option>
-      <option value="green">🟢 Green</option>
+      <option value="R">🔴 Red</option>
+      <option value="G">🟢 Green</option>
     </select>
-    <select id="candle4">
+    <select id="c4">
       <option value="">Select Candle 4</option>
-      <option value="red">🔴 Red</option>
-      <option value="green">🟢 Green</option>
+      <option value="R">🔴 Red</option>
+      <option value="G">🟢 Green</option>
     </select>
-    <select id="candle5">
+    <select id="c5">
       <option value="">Select Candle 5 (Last Candle)</option>
-      <option value="red">🔴 Red</option>
-      <option value="green">🟢 Green</option>
+      <option value="R">🔴 Red</option>
+      <option value="G">🟢 Green</option>
     </select>
 
     <label>Running Candle:</label>
-    <select id="runningCandle">
+    <select id="running">
       <option value="">Select Running Candle</option>
-      <option value="red">🔴 Red</option>
-      <option value="green">🟢 Green</option>
+      <option value="R">🔴 Red</option>
+      <option value="G">🟢 Green</option>
     </select>
 
-    <button class="button" onclick="generateSignal()">Generate Signal</button>
+    <button id="generateBtn" onclick="generateSignal()">Generate Signal</button>
 
-    <div class="signal-output" id="signalOutput" style="display:none;"></div>
+    <div class="output" id="outputBox">
+      <div class="signal-type" id="signalText"></div>
+      <div id="signalTime"></div>
+      <button class="copy-btn" onclick="copySignal()">Copy Signal</button>
+    </div>
   </div>
 
   <script>
+    let lastGeneratedTime = null;
+
     function generateSignal() {
-      const c1 = document.getElementById("candle1").value;
-      const c2 = document.getElementById("candle2").value;
-      const c3 = document.getElementById("candle3").value;
-      const c4 = document.getElementById("candle4").value;
-      const c5 = document.getElementById("candle5").value;
-      const running = document.getElementById("runningCandle").value;
+      const c1 = document.getElementById('c1').value;
+      const c2 = document.getElementById('c2').value;
+      const c3 = document.getElementById('c3').value;
+      const c4 = document.getElementById('c4').value;
+      const c5 = document.getElementById('c5').value;
+      const running = document.getElementById('running').value;
+      const outputBox = document.getElementById('outputBox');
+      const signalText = document.getElementById('signalText');
+      const signalTime = document.getElementById('signalTime');
 
-      const output = document.getElementById("signalOutput");
-
-      if (!(c1 && c2 && c3 && c4 && c5 && running)) {
-        output.style.display = "block";
-        output.innerHTML = `<div class="output-box"><span style="color:#f87171;">⚠️ Please select all candles and running candle.</span></div>`;
+      if (!c1 || !c2 || !c3 || !c4 || !c5 || !running) {
+        alert('Please select all candles including running candle.');
         return;
       }
 
-      const candles = [c1, c2, c3, c4, c5];
-      const reds = candles.filter(c => c === "red").length;
-      const greens = candles.filter(c => c === "green").length;
-
-      let signal = "";
-      if (reds > greens) signal = "put";
-      else if (greens > reds) signal = "call";
-      else signal = "wait";
-
-      // Validate based on last candle and running candle
-      let isValid = true;
-      if (c5 === running) {
-        isValid = false;
+      const now = new Date();
+      if (lastGeneratedTime && now - lastGeneratedTime < 60000) {
+        alert("Wait at least 1 minute before generating a new signal.");
+        return;
       }
 
-      const emoji = signal === "call" ? "🟢 CALL" : signal === "put" ? "🔴 PUT" : "⏳ WAIT";
-      const status = isValid && signal !== "wait" ? `<span class="status-valid">✅ VALID</span>` : `<span class="status-invalid">❌ INVALID</span>`;
-      const now = new Date();
-      const nextMin = new Date(now.getTime() + 60 * 1000);
-      const nextTime = nextMin.toTimeString().slice(0,5);
+      let signal = "WAIT";
+      if ((c1 === "R" && c2 === "R" && c3 === "R" && c4 === "R" && c5 === "R") ||
+          (c1 === "G" && c2 === "G" && c3 === "G" && c4 === "G" && c5 === "G")) {
+        signal = c5 === "R" ? "CALL" : "PUT";
+      }
 
-      const formatted = `
-        <div class="output-box">
-          <div class="signal-type ${signal}">${emoji}</div>
-          <div class="output-label">➡️ Next Candle Time:</div>
-          <div class="output-value">${nextTime}</div>
-          <div class="output-label">Candle Count:</div>
-          <div class="output-value">🔴 ${reds} | 🟢 ${greens}</div>
-          <div class="output-label">Running Candle:</div>
-          <div class="output-value">${running === "red" ? "🔴 RED" : "🟢 GREEN"}</div>
-          <div class="output-label">Status:</div>
-          <div class="output-value">${status}</div>
-          <button class="copy-button" onclick="copyText()">📋 Copy Signal</button>
-          <div class="rules">📘 Signal Rules<br>✅ Valid – Matches 1st Step MTG Rule<br>⛔ Invalid – Running candle matches last selected candle</div>
-        </div>`;
+      // Validation: Last Candle should not match Running Candle
+      if (c5 === running) {
+        signalText.textContent = `❌ INVALID SIGNAL`;
+      } else {
+        signalText.textContent = `✅ ${signal} Signal`;
+      }
 
-      output.innerHTML = formatted;
-      output.style.display = "block";
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      signalTime.textContent = `🕒 Signal Time: ${hours}:${minutes}`;
+
+      outputBox.style.display = "block";
+      lastGeneratedTime = now;
     }
 
-    function copyText() {
-      const output = document.querySelector(".output-box");
-      const tempInput = document.createElement("textarea");
-      tempInput.value = output.innerText.replace(/📋 Copy Signal.+/, '');
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      document.execCommand("copy");
-      document.body.removeChild(tempInput);
-      alert("✅ Signal copied!");
+    function copySignal() {
+      const text = document.getElementById("signalText").textContent + "\n" +
+                   document.getElementById("signalTime").textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Signal copied!");
+      });
     }
   </script>
-
 </body>
 </html>
