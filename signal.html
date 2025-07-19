@@ -157,9 +157,9 @@
 
   <div class="output" id="signalOutput" style="display:none;">
     <h3>✅ Signal Output Preview</h3>
-    <p id="signalLine">📡 Signal Type: ⬇ PUT</p>
+    <p id="signalLine">📱 Signal Type: ⬇ PUT</p>
     <p id="nextCandleLine">➡️ Next Candle Time: 14:33</p>
-    <p id="countLine">🟢 Green: 2     🔴 Red: 3</p>
+    <p id="countLine">🟢 Green: 2      🔴 Red: 3</p>
     <p id="runningLine">📶 Running Candle: 🟢 GREEN</p>
     <p id="statusLine">📌 Status: ✅ VALID</p>
     <p id="ruleLine">✅ Matches 1st Step MTG Rule</p>
@@ -167,32 +167,14 @@
     <a href="#" class="rules-link">📘 Signal Rules</a>
   </div>
 
+  <script src="pairs.js"></script>
   <script>
     const otcPairs = [
-      ["USD/BRL (OTC)",
-    "EUR/USD (OTC)",
-    "USD/ARS (OTC)",
-    "USD/BDT (OTC)",
-    "USD/MXN (OTC)",
-    "USD/PKR (OTC)",
-    "USD/JPY (OTC)",
-    "EUR/CAD (OTC)",
-    "USD/IDR (OTC)",
-    "USD/TRY (OTC)",
-    "AUD/CAD (OTC)",
-    "CAD/JPY (OTC)",
-    "CHF/JPY (OTC)",
-    "EUR/AUD (OTC)",
-    "EUR/CHF (OTC)",
-    "GBP/AUD (OTC)",
-    "GBP/CAD (OTC)",
-    "GBP/CHF (OTC)",
-    "GBP/JPY (OTC)",
-    "NZD/CAD (OTC)",
-    "NZD/JPY (OTC)",
-    "NZD/USD (OTC)"
-]
-
+      "USD/BRL (OTC)", "EUR/USD (OTC)", "USD/ARS (OTC)", "USD/BDT (OTC)", "USD/MXN (OTC)",
+      "USD/PKR (OTC)", "USD/JPY (OTC)", "EUR/CAD (OTC)", "USD/IDR (OTC)", "USD/TRY (OTC)",
+      "AUD/CAD (OTC)", "CAD/JPY (OTC)", "CHF/JPY (OTC)", "EUR/AUD (OTC)", "EUR/CHF (OTC)",
+      "GBP/AUD (OTC)", "GBP/CAD (OTC)", "GBP/CHF (OTC)", "GBP/JPY (OTC)", "NZD/CAD (OTC)",
+      "NZD/JPY (OTC)", "NZD/USD (OTC)"
     ];
 
     const realPairs = [
@@ -209,15 +191,19 @@
       } else if (market === "real") {
         pairs = realPairs;
       } else {
-        pairs = ["EUR/USD", "GBP/JPY", "USD/JPY", "AUD/CHF"]; // default Binary pairs
+        pairs = pairList.split('\n').map(opt => opt.trim()).filter(opt => opt.includes('<option'));
       }
 
       pairSelect.innerHTML = "";
       pairs.forEach(pair => {
-        const opt = document.createElement("option");
-        opt.value = pair;
-        opt.textContent = pair;
-        pairSelect.appendChild(opt);
+        if (typeof pair === 'string' && pair.startsWith("<option")) {
+          pairSelect.insertAdjacentHTML('beforeend', pair);
+        } else {
+          const opt = document.createElement("option");
+          opt.value = pair;
+          opt.textContent = pair;
+          pairSelect.appendChild(opt);
+        }
       });
     }
 
@@ -240,9 +226,9 @@
       const nextMin = (now.getMinutes() + 1) % 60;
       const nextTime = `${hh}:${nextMin.toString().padStart(2,'0')}`;
 
-      document.getElementById("signalLine").textContent = `📡 Signal Type: ${signal}`;
+      document.getElementById("signalLine").textContent = `📱 Signal Type: ${signal}`;
       document.getElementById("nextCandleLine").textContent = `➡️ Next Candle Time: ${nextTime}`;
-      document.getElementById("countLine").textContent = `🟢 Green: ${green}     🔴 Red: ${red}`;
+      document.getElementById("countLine").textContent = `🟢 Green: ${green}      🔴 Red: ${red}`;
       document.getElementById("runningLine").textContent = `📶 Running Candle: ${running === 'green' ? '🟢 GREEN' : '🔴 RED'}`;
       document.getElementById("statusLine").textContent = `📌 Status: ${valid ? '✅ VALID' : '❌ INVALID'}`;
       document.getElementById("ruleLine").textContent = valid ? '✅ Matches 1st Step MTG Rule' : '❌ Doesn\'t match Running Candle';
@@ -254,9 +240,7 @@
       navigator.clipboard.writeText(text).then(() => alert("Signal copied!"));
     }
 
-    // First load default pairs
     loadPairs();
   </script>
-
 </body>
 </html>
