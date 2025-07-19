@@ -1,1 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CandleLogic AI – Signal Generator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      color: #ffffff;
+      background-color: #0d1117; /* Login page এর মত dark navy background */
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #00b894;
+      font-size: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    select, .pair-box, .candle-select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background-color: #f0f0f0;
+      color: #000000;
+      font-size: 15px;
+    }
+
+    .candle-boxes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+    }
+
+    .candle-select {
+      width: calc(50% - 5px);
+    }
+
+    .candle-select.center {
+      width: 100%;
+    }
+
+    .running-candle-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .candle-option {
+      flex: 1 1 45%;
+      text-align: center;
+      padding: 10px;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 500;
+      transition: all 0.3s;
+      background-color: #f0f0f0;
+      color: #000;
+    }
+
+    .candle-option:hover {
+      border-color: #00b894;
+    }
+
+    input[type="radio"] {
+      display: none;
+    }
+
+    input[name="runningCandle"]:checked + .red {
+      background-color: #c0392b;
+      color: #fff;
+      border-color: #e74c3c;
+    }
+
+    input[name="runningCandle"]:checked + .green {
+      background-color: #27ae60;
+      color: #fff;
+      border-color: #2ecc71;
+    }
+
+    @media screen and (min-width: 768px) {
+      body {
+        padding: 40px;
+      }
+
+      h1 {
+        font-size: 30px;
+      }
+
+      .candle-option {
+        flex: none;
+        width: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧠 CandleLogic AI – Signal Generator</h1>
+
+  <div class="form-group">
+    <label>🌐 Time Zone:</label>
+    <select>
+      <option>GMT +6 (Bangladesh)</option>
+      <option>GMT +5:30 (India)</option>
+      <option>GMT +7</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>🧭 Market:</label>
+    <select>
+      <option>Real Market</option>
+      <option>OTC Market</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>⏱️ Time Frame:</label>
+    <select>
+      <option>1 Minute</option>
+      <option>3 Minute</option>
+      <option>5 Minute</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>💹 Pair Selection:</label>
+    <select class="pair-box">
+      <option>EUR/USD</option>
+      <option>USD/JPY</option>
+      <option>AUD/CAD</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>🕯️ Select Last 5 Candles:</label>
+    <div class="candle-boxes">
+      <select class="candle-select">
+        <option>🔴 Red</option>
+        <option>🟢 Green</option>
+      </select>
+      <select class="candle-select">
+        <option>🔴 Red</option>
+        <option>🟢 Green</option>
+      </select>
+      <select class="candle-select">
+        <option>🔴 Red</option>
+        <option>🟢 Green</option>
+      </select>
+      <select class="candle-select">
+        <option>🔴 Red</option>
+        <option>🟢 Green</option>
+      </select>
+      <select class="candle-select center">
+        <option>🔴 Red</option>
+        <option>🟢 Green</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>🕯️ Choose Running Candle:</label>
+    <div class="running-candle-options">
+      <input type="radio" id="runningRed" name="runningCandle" value="red" />
+      <label for="runningRed" class="candle-option red">🔴 Red</label>
+
+      <input type="radio" id="runningGreen" name="runningCandle" value="green" />
+      <label for="runningGreen" class="candle-option green">🟢 Green</label>
+    </div>
+  </div>
+
+</body>
+</html>
 
