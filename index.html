@@ -6,83 +6,74 @@
   <title>CandleLogic AI – Login</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Roboto', sans-serif;
-    }
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Roboto',sans-serif; }
     body {
-      height: 100vh;
+      height:100vh;
       background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #fff;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      color:#fff;
     }
     .login-box {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid #ffffff22;
-      backdrop-filter: blur(10px);
-      padding: 40px;
-      border-radius: 16px;
-      text-align: center;
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      background: rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.13);
+      backdrop-filter:blur(10px);
+      padding:40px;
+      border-radius:16px;
+      text-align:center;
+      width:360px;
+      box-shadow:0 8px 32px rgba(31,38,135,0.37);
     }
     .logo {
-      font-size: 2rem;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      font-weight: bold;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      margin-bottom:20px;
     }
     .logo img {
-      width: 36px;
-      height: 36px;
-      filter: drop-shadow(0 0 4px rgba(255,255,255,0.5));
-    }
-    .login-box h2 {
-      margin-bottom: 20px;
+      width:40px;
+      height:40px;
+      filter: drop-shadow(0 0 6px rgba(0,255,255,0.7));
     }
     input[type="password"] {
-      padding: 10px;
-      width: 100%;
-      border: none;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      font-size: 1rem;
+      width:100%;
+      padding:10px;
+      margin:20px 0;
+      border:none;
+      border-radius:8px;
+      font-size:1rem;
     }
     button {
-      padding: 10px 30px;
-      border: none;
-      background-color: #00c9a7;
-      color: #fff;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: 0.3s ease;
+      padding:10px 30px;
+      background-color:#00c9a7;
+      border:none;
+      border-radius:8px;
+      font-size:1rem;
+      color:#fff;
+      cursor:pointer;
+      transition:0.3s ease;
     }
     button:hover {
-      background-color: #00b39f;
+      background-color:#00b39f;
     }
     .telegram-link {
-      margin-top: 20px;
-      font-size: 0.9rem;
+      margin-top:20px;
+      font-size:0.9rem;
     }
     .telegram-link a {
-      color: #00c9a7;
-      text-decoration: none;
-      font-weight: bold;
+      color:#00c9a7;
+      text-decoration:none;
+      font-weight:600;
     }
   </style>
 </head>
 <body>
   <div class="login-box">
     <div class="logo">
-      <img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png" alt="Candle Icon"/>
-      <span>CandleLogic AI</span>
+      <img src="img/logo.png" alt="CandleLogic AI Logo" />
+      <span style="font-size:1.5rem; font-weight:700;">CandleLogic AI</span>
     </div>
     <h2>🔒 Enter Password to Access Signals</h2>
     <input type="password" id="passwordInput" placeholder="Enter Password"/>
@@ -91,11 +82,10 @@
       👉 Get password from <a href="https://t.me/QXParvej" target="_blank">@QXParvej</a>
     </div>
   </div>
-
   <script>
-    function checkPassword() {
-      const input = document.getElementById('passwordInput').value;
-      if (input === "11115") {
+    function checkPassword(){
+      const pw = document.getElementById('passwordInput').value;
+      if(pw === "11115"){
         window.location.href = "signal.html";
       } else {
         alert("Incorrect Password");
