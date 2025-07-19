@@ -13,12 +13,7 @@
       color: #fff;
       padding: 20px;
     }
-
-    h2 {
-      color: #00ffcc;
-      text-align: center;
-    }
-
+    h2 { color: #00ffcc; text-align: center; }
     .section {
       background: #111722;
       padding: 20px;
@@ -26,72 +21,35 @@
       border-radius: 10px;
       box-shadow: 0 0 8px rgba(0,255,200,0.1);
     }
-
-    .section label {
-      display: block;
-      margin-bottom: 8px;
-      color: #ccc;
-    }
-
+    .section label { display: block; margin-bottom: 8px; color: #ccc; }
     select, button {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border-radius: 6px;
-      border: none;
-      background: #1c2530;
-      color: #fff;
-      font-size: 16px;
+      width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 6px;
+      border: none; background: #1c2530; color: #fff; font-size: 16px;
     }
-
     .candle-select {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+      display: flex; flex-wrap: wrap; gap: 10px;
     }
-
-    .candle-select select {
-      flex: 1 1 48%;
-    }
-
+    .candle-select select { flex: 1 1 48%; }
     .output {
-      background: #0f141c;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,255,200,0.15);
-      margin-top: 20px;
+      background: #0f141c; padding: 20px; border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,255,200,0.15); margin-top: 20px;
     }
-
-    .output p {
-      margin: 8px 0;
-      font-size: 16px;
-    }
-
+    .output p { margin: 8px 0; font-size: 16px; }
     .output .valid { color: #00ff88; }
     .output .invalid { color: #ff4c4c; }
-
     .copy-btn, .rules-link {
-      display: block;
-      margin-top: 10px;
-      background: #00ffcc;
-      color: #000;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      text-align: center;
-      text-decoration: none;
-      font-weight: bold;
-      cursor: pointer;
+      display: block; margin-top: 10px; background: #00ffcc; color: #000;
+      padding: 10px; border: none; border-radius: 5px; text-align: center;
+      text-decoration: none; font-weight: bold; cursor: pointer;
     }
-
-    .rules-link {
-      background: #007c99;
-      color: #fff;
+    .rules-link { background: #007c99; color: #fff; }
+    #timerDisplay {
+      text-align: center; font-size: 20px; color: #facc15;
+      margin-top: 10px; font-weight: bold;
     }
   </style>
 </head>
 <body>
-
   <h2>TraderParvej CandleLogic AI – Signal</h2>
 
   <div class="section">
@@ -110,39 +68,24 @@
     </select>
 
     <label>Pair</label>
-    <select id="pair">
-      <!-- dynamically filled -->
+    <select id="pair"></select>
+
+    <label>Timeframe</label>
+    <select id="timeframe">
+      <option value="1">1 Minute</option>
+      <option value="3">3 Minutes</option>
+      <option value="5">5 Minutes</option>
     </select>
   </div>
 
   <div class="section">
     <label>Last 5 Candles</label>
     <div class="candle-select">
-      <select id="c1">
-        <option value="">Select</option>
-        <option value="green">🟢 Green</option>
-        <option value="red">🔴 Red</option>
-      </select>
-      <select id="c2">
-        <option value="">Select</option>
-        <option value="green">🟢 Green</option>
-        <option value="red">🔴 Red</option>
-      </select>
-      <select id="c3">
-        <option value="">Select</option>
-        <option value="green">🟢 Green</option>
-        <option value="red">🔴 Red</option>
-      </select>
-      <select id="c4">
-        <option value="">Select</option>
-        <option value="green">🟢 Green</option>
-        <option value="red">🔴 Red</option>
-      </select>
-      <select id="c5">
-        <option value="">Select</option>
-        <option value="green">🟢 Green</option>
-        <option value="red">🔴 Red</option>
-      </select>
+      <select id="c1"><option value="">Select</option><option value="green">🟢 Green</option><option value="red">🔴 Red</option></select>
+      <select id="c2"><option value="">Select</option><option value="green">🟢 Green</option><option value="red">🔴 Red</option></select>
+      <select id="c3"><option value="">Select</option><option value="green">🟢 Green</option><option value="red">🔴 Red</option></select>
+      <select id="c4"><option value="">Select</option><option value="green">🟢 Green</option><option value="red">🔴 Red</option></select>
+      <select id="c5"><option value="">Select</option><option value="green">🟢 Green</option><option value="red">🔴 Red</option></select>
     </div>
 
     <label>Running Candle</label>
@@ -152,14 +95,15 @@
       <option value="red">🔴 Red</option>
     </select>
 
-    <button onclick="generateSignal()">Generate Signal</button>
+    <button onclick="generateSignal()" id="genBtn">Generate Signal</button>
+    <div id="timerDisplay"></div>
   </div>
 
   <div class="output" id="signalOutput" style="display:none;">
     <h3>✅ Signal Output Preview</h3>
     <p id="signalLine">📱 Signal Type: ⬇ PUT</p>
     <p id="nextCandleLine">➡️ Next Candle Time: 14:33</p>
-    <p id="countLine">🟢 Green: 2      🔴 Red: 3</p>
+    <p id="countLine">🟢 Green: 2      🔴 Red: 3</p>
     <p id="runningLine">📶 Running Candle: 🟢 GREEN</p>
     <p id="statusLine">📌 Status: ✅ VALID</p>
     <p id="ruleLine">✅ Matches 1st Step MTG Rule</p>
@@ -167,72 +111,64 @@
     <a href="#" class="rules-link">📘 Signal Rules</a>
   </div>
 
-  <script src="pairs.js"></script>
   <script>
-    const otcPairs = [
-      "USD/BRL (OTC)", "EUR/USD (OTC)", "USD/ARS (OTC)", "USD/BDT (OTC)", "USD/MXN (OTC)",
-      "USD/PKR (OTC)", "USD/JPY (OTC)", "EUR/CAD (OTC)", "USD/IDR (OTC)", "USD/TRY (OTC)",
-      "AUD/CAD (OTC)", "CAD/JPY (OTC)", "CHF/JPY (OTC)", "EUR/AUD (OTC)", "EUR/CHF (OTC)",
-      "GBP/AUD (OTC)", "GBP/CAD (OTC)", "GBP/CHF (OTC)", "GBP/JPY (OTC)", "NZD/CAD (OTC)",
-      "NZD/JPY (OTC)", "NZD/USD (OTC)"
-    ];
-
-    const realPairs = [
-      "EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "NZD/USD", "USD/CHF", "USD/CAD", "GBP/JPY", "AUD/CHF"
-    ];
+    const otcPairs = ["USD/BRL (OTC)","EUR/USD (OTC)","USD/ARS (OTC)","USD/BDT (OTC)","USD/MXN (OTC)","USD/PKR (OTC)","USD/JPY (OTC)","EUR/CAD (OTC)","USD/IDR (OTC)","USD/TRY (OTC)","AUD/CAD (OTC)","CAD/JPY (OTC)","CHF/JPY (OTC)","EUR/AUD (OTC)","EUR/CHF (OTC)","GBP/AUD (OTC)","GBP/CAD (OTC)","GBP/CHF (OTC)","GBP/JPY (OTC)","NZD/CAD (OTC)","NZD/JPY (OTC)","NZD/USD (OTC)"];
+    const realPairs = ["EUR/USD","GBP/USD","USD/JPY","AUD/USD","NZD/USD","USD/CHF","USD/CAD","GBP/JPY","AUD/CHF"];
 
     function loadPairs() {
       const market = document.getElementById("market").value;
       const pairSelect = document.getElementById("pair");
-
       let pairs = [];
-      if (market === "otc") {
-        pairs = otcPairs;
-      } else if (market === "real") {
-        pairs = realPairs;
-      } else {
-        pairs = pairList.split('\n').map(opt => opt.trim()).filter(opt => opt.includes('<option'));
-      }
+      if (market === "otc") pairs = otcPairs;
+      else if (market === "real") pairs = realPairs;
+      else pairs = pairList.split('\n').map(opt => opt.trim()).filter(opt => opt.includes('<option'));
 
       pairSelect.innerHTML = "";
       pairs.forEach(pair => {
-        if (typeof pair === 'string' && pair.startsWith("<option")) {
-          pairSelect.insertAdjacentHTML('beforeend', pair);
-        } else {
-          const opt = document.createElement("option");
-          opt.value = pair;
-          opt.textContent = pair;
-          pairSelect.appendChild(opt);
-        }
+        const opt = document.createElement("option");
+        opt.value = pair;
+        opt.textContent = pair;
+        pairSelect.appendChild(opt);
       });
     }
 
     function generateSignal() {
       const candles = ["c1","c2","c3","c4","c5"].map(id => document.getElementById(id).value);
       const running = document.getElementById("running").value;
-      if (candles.includes("") || !running) {
-        alert("Please select all candles and running candle.");
-        return;
-      }
+      if (candles.includes("") || !running) return alert("Select all candles and running candle.");
       const green = candles.filter(c => c === 'green').length;
       const red = candles.filter(c => c === 'red').length;
-
       const signal = green > red ? '⬇ PUT' : red > green ? '⬆ CALL' : 'WAIT';
       const valid = candles[4] !== running;
-
       const now = new Date();
-      const hh = now.getHours().toString().padStart(2,'0');
-      const mm = now.getMinutes().toString().padStart(2,'0');
-      const nextMin = (now.getMinutes() + 1) % 60;
-      const nextTime = `${hh}:${nextMin.toString().padStart(2,'0')}`;
-
+      now.setMinutes(now.getMinutes() + 1);
+      const nextTime = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
       document.getElementById("signalLine").textContent = `📱 Signal Type: ${signal}`;
       document.getElementById("nextCandleLine").textContent = `➡️ Next Candle Time: ${nextTime}`;
-      document.getElementById("countLine").textContent = `🟢 Green: ${green}      🔴 Red: ${red}`;
+      document.getElementById("countLine").textContent = `🟢 Green: ${green}      🔴 Red: ${red}`;
       document.getElementById("runningLine").textContent = `📶 Running Candle: ${running === 'green' ? '🟢 GREEN' : '🔴 RED'}`;
       document.getElementById("statusLine").textContent = `📌 Status: ${valid ? '✅ VALID' : '❌ INVALID'}`;
       document.getElementById("ruleLine").textContent = valid ? '✅ Matches 1st Step MTG Rule' : '❌ Doesn\'t match Running Candle';
       document.getElementById("signalOutput").style.display = 'block';
+      startCountdown();
+    }
+
+    function startCountdown() {
+      const timeframe = parseInt(document.getElementById("timeframe").value);
+      const genBtn = document.getElementById("genBtn");
+      const display = document.getElementById("timerDisplay");
+      let seconds = timeframe * 60;
+      genBtn.disabled = true;
+      const interval = setInterval(() => {
+        const m = Math.floor(seconds / 60);
+        const s = seconds % 60;
+        display.textContent = `🕐 Next signal in: ${m}:${s.toString().padStart(2,'0')} mins`;
+        if (--seconds < 0) {
+          clearInterval(interval);
+          genBtn.disabled = false;
+          display.textContent = "✅ You can generate signal now.";
+        }
+      }, 1000);
     }
 
     function copySignal() {
