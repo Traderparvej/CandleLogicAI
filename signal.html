@@ -3,137 +3,207 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CandleLogic AI – Signal Generator</title>
+  <title>CandleLogic AI – Signal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background: #0b0f15;
       color: #fff;
-    }
-
-    header {
-      background: #0b0f15;
-      padding: 20px 10px;
-      text-align: center;
-      font-size: 26px;
-      font-weight: bold;
-      color: #FFD700;
-      text-shadow: 0 0 8px #FFD700;
-      border-bottom: 1px solid #1e1e1e;
-    }
-
-    .container {
-      max-width: 600px;
-      margin: 30px auto;
       padding: 20px;
-      background: #131922;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
     }
 
-    .section-title {
+    h2 {
+      color: #00ffcc;
       text-align: center;
-      font-size: 20px;
-      margin-bottom: 15px;
     }
 
-    .form-group {
+    .section {
+      background: #111722;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,255,200,0.1);
+    }
+
+    .section label {
+      display: block;
+      margin-bottom: 8px;
+      color: #ccc;
+    }
+
+    select, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: none;
+      background: #1c2530;
+      color: #fff;
+      font-size: 16px;
+    }
+
+    .candle-select {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
+      gap: 10px;
     }
 
-    .form-group select {
-      width: 48%;
-      margin-bottom: 10px;
-      padding: 10px;
-      border-radius: 8px;
-      background: #1f2a38;
-      color: white;
-      border: 1px solid #333;
-    }
-
-    .btn {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      background-color: #FFD700;
-      color: #000;
-      font-weight: bold;
-      border: none;
-      border-radius: 8px;
-      margin-top: 15px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .btn:hover {
-      background-color: #e6c200;
+    .candle-select select {
+      flex: 1 1 48%;
     }
 
     .output {
+      background: #0f141c;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,255,200,0.15);
       margin-top: 20px;
-      padding: 15px;
-      background: #0e141c;
-      border-left: 4px solid #FFD700;
-      border-radius: 8px;
+    }
+
+    .output p {
+      margin: 8px 0;
       font-size: 16px;
-      white-space: pre-line;
+    }
+
+    .output .valid { color: #00ff88; }
+    .output .invalid { color: #ff4c4c; }
+
+    .copy-btn, .rules-link {
+      display: block;
+      margin-top: 10px;
+      background: #00ffcc;
+      color: #000;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      text-align: center;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .rules-link {
+      background: #007c99;
+      color: #fff;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    CandleLogic AI – TraderParvej
-  </header>
+  <h2>CandleLogic AI – Signal Generator</h2>
 
-  <div class="container">
-    <div class="section-title">📊 Signal Generator</div>
+  <div class="section">
+    <label>Market</label>
+    <select id="market">
+      <option>Binary</option>
+      <option>OTC</option>
+      <option>Real</option>
+    </select>
 
-    <div class="form-group">
-      <select id="candle1"><option value="">Select Candle 1</option><option value="green">🟢 Green</option><option value="red">🔴 Red</option></select>
-      <select id="candle2"><option value="">Select Candle 2</option><option value="green">🟢 Green</option><option value="red">🔴 Red</option></select>
-      <select id="candle3"><option value="">Select Candle 3</option><option value="green">🟢 Green</option><option value="red">🔴 Red</option></select>
-      <select id="candle4"><option value="">Select Candle 4</option><option value="green">🟢 Green</option><option value="red">🔴 Red</option></select>
-      <select id="candle5"><option value="">Select Running Candle</option><option value="green">🟢 Green</option><option value="red">🔴 Red</option></select>
+    <label>Timezone</label>
+    <select id="timezone">
+      <option value="+0600">GMT+6 (BD Time)</option>
+      <option value="+0530">GMT+5:30 (India)</option>
+      <option value="+0000">GMT (UTC)</option>
+    </select>
+
+    <label>Pair</label>
+    <select id="pair">
+      <option>EUR/USD</option>
+      <option>GBP/JPY</option>
+      <option>USD/JPY</option>
+      <option>AUD/CHF</option>
+    </select>
+  </div>
+
+  <div class="section">
+    <label>Last 5 Candles</label>
+    <div class="candle-select">
+      <select id="c1">
+        <option value="">Select</option>
+        <option value="green">🟢 Green</option>
+        <option value="red">🔴 Red</option>
+      </select>
+      <select id="c2">
+        <option value="">Select</option>
+        <option value="green">🟢 Green</option>
+        <option value="red">🔴 Red</option>
+      </select>
+      <select id="c3">
+        <option value="">Select</option>
+        <option value="green">🟢 Green</option>
+        <option value="red">🔴 Red</option>
+      </select>
+      <select id="c4">
+        <option value="">Select</option>
+        <option value="green">🟢 Green</option>
+        <option value="red">🔴 Red</option>
+      </select>
+      <select id="c5">
+        <option value="">Select</option>
+        <option value="green">🟢 Green</option>
+        <option value="red">🔴 Red</option>
+      </select>
     </div>
 
-    <button class="btn" onclick="generateSignal()">Generate Signal</button>
+    <label>Running Candle</label>
+    <select id="running">
+      <option value="">Select</option>
+      <option value="green">🟢 Green</option>
+      <option value="red">🔴 Red</option>
+    </select>
 
-    <div class="output" id="signalOutput" style="display:none;"></div>
+    <button onclick="generateSignal()">Generate Signal</button>
+  </div>
+
+  <div class="output" id="signalOutput" style="display:none;">
+    <h3>✅ Signal Output Preview</h3>
+    <p id="signalLine">📡 Signal Type: ⬇ PUT</p>
+    <p id="nextCandleLine">➡️ Next Candle Time: 14:33</p>
+    <p id="countLine">🟢 Green: 2     🔴 Red: 3</p>
+    <p id="runningLine">📶 Running Candle: 🟢 GREEN</p>
+    <p id="statusLine">📌 Status: ✅ VALID</p>
+    <p id="ruleLine">✅ Matches 1st Step MTG Rule</p>
+    <button class="copy-btn" onclick="copySignal()">📋 Copy Signal</button>
+    <a href="#" class="rules-link">📘 Signal Rules</a>
   </div>
 
   <script>
     function generateSignal() {
-      const c1 = document.getElementById('candle1').value;
-      const c2 = document.getElementById('candle2').value;
-      const c3 = document.getElementById('candle3').value;
-      const c4 = document.getElementById('candle4').value;
-      const c5 = document.getElementById('candle5').value;
-
-      const candles = [c1, c2, c3, c4];
-      const running = c5;
-
-      if (candles.includes("") || running === "") {
-        alert("Please select all 5 candles.");
+      const candles = ["c1","c2","c3","c4","c5"].map(id => document.getElementById(id).value);
+      const running = document.getElementById("running").value;
+      if (candles.includes("") || !running) {
+        alert("Please select all candles and running candle.");
         return;
       }
+      const green = candles.filter(c => c === 'green').length;
+      const red = candles.filter(c => c === 'red').length;
 
-      const greenCount = candles.filter(c => c === 'green').length;
-      const redCount = candles.filter(c => c === 'red').length;
-
-      let signal = "WAIT";
-      if (greenCount > redCount && running !== 'green') {
-        signal = "PUT";
-      } else if (redCount > greenCount && running !== 'red') {
-        signal = "CALL";
-      }
+      const signal = green > red ? '⬇ PUT' : red > green ? '⬆ CALL' : 'WAIT';
+      const valid = candles[4] !== running;
 
       const now = new Date();
-      const signalTime = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+      const hh = now.getHours().toString().padStart(2,'0');
+      const mm = now.getMinutes().toString().padStart(2,'0');
+      const nextMin = (now.getMinutes() + 1) % 60;
+      const nextTime = `${hh}:${nextMin.toString().padStart(2,'0')}`;
 
-      const result = `✅ Signal Output Preview\n📡 Signal Type: ${signal === "WAIT" ? "⏸ WAIT" : (signal === "CALL" ? "⬆ CALL" : "⬇ PUT")}\n➡️ Next Candle Time: ${signalTime}\n🟢 Green: ${greenCount}   🔴 Red: ${redCount}\n📶 Running Candle: ${running === 'green' ? '🟢 GREEN' : '🔴 RED'}`;
+      document.getElementById("signalLine").textContent = `📡 Signal Type: ${signal}`;
+      document.getElementById("nextCandleLine").textContent = `➡️ Next Candle Time: ${nextTime}`;
+      document.getElementById("countLine").textContent = `🟢 Green: ${green}     🔴 Red: ${red}`;
+      document.getElementById("runningLine").textContent = `📶 Running Candle: ${running === 'green' ? '🟢 GREEN' : '🔴 RED'}`;
+      document.getElementById("statusLine").textContent = `📌 Status: ${valid ? '✅ VALID' : '❌ INVALID'}`;
+      document.getElementById("ruleLine").textContent = valid ? '✅ Matches 1st Step MTG Rule' : '❌ Doesn\'t match Running Candle';
+      document.getElementById("signalOutput").style.display = 'block';
+    }
 
-      document.getElementById('signa
+    function copySignal() {
+      const text = document.getElementById("signalOutput").innerText;
+      navigator.clipboard.writeText(text).then(() => alert("Signal copied!"));
+    }
+  </script>
+
+</body>
+</html>
