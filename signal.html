@@ -8,173 +8,198 @@
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #0b0f15;
-      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0d1117;
+      color: #e6edf3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       padding: 20px;
+    }
+    h1 {
+      margin-top: 10px;
+      font-size: 28px;
+      color: #58a6ff;
     }
     .container {
+      background-color: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
       max-width: 500px;
-      margin: auto;
-      background: #111827;
-      padding: 25px;
-      border-radius: 16px;
-      box-shadow: 0 0 20px rgba(0,200,150,0.2);
+      width: 100%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
-    h2 {
-      text-align: center;
-      color: #38bdf8;
-      margin-bottom: 20px;
-    }
-    .candles {
+    .row {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
       justify-content: space-between;
+      margin-bottom: 10px;
     }
-    .candle-select {
-      flex: 0 0 48%;
-    }
-    select {
-      width: 100%;
+    select, button {
+      width: 48%;
       padding: 8px;
-      font-size: 16px;
-      border-radius: 8px;
       border: none;
-      background: #1f2937;
-      color: #fff;
+      border-radius: 5px;
+      font-size: 16px;
     }
-    .signal-btn {
+    .red { background-color: #e74c3c; color: white; }
+    .green { background-color: #2ecc71; color: white; }
+    button.generate-btn {
       width: 100%;
-      padding: 12px;
-      margin-top: 20px;
-      background: #22c55e;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      color: #fff;
-    }
-    .signal-btn:disabled {
-      background: #4b5563;
-      cursor: not-allowed;
+      background-color: #58a6ff;
+      color: white;
+      margin-top: 10px;
     }
     .output {
+      background-color: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 15px;
       margin-top: 20px;
-      background: #1e293b;
-      padding: 20px;
-      border-radius: 12px;
-      font-size: 16px;
-      white-space: pre-wrap;
     }
-    .copy-btn, .reset-btn {
+    .copy-btn, .rules-link {
+      background-color: #21262d;
+      color: #c9d1d9;
+      padding: 8px;
       margin-top: 10px;
-      width: 48%;
-      padding: 10px;
-      background: #0ea5e9;
-      border: none;
-      border-radius: 8px;
-      color: #fff;
+      border-radius: 5px;
       cursor: pointer;
+      border: none;
     }
-    .reset-btn {
-      background: #f43f5e;
-      float: right;
+    .copy-btn:hover, .rules-link:hover {
+      background-color: #30363d;
     }
-    .time {
-      text-align: center;
-      font-size: 14px;
-      margin-top: 15px;
-      color: #94a3b8;
+    #timerDisplay {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #ffa657;
     }
   </style>
 </head>
 <body>
+  <h1>CandleLogic AI – Signal</h1>
   <div class="container">
-    <h2>CandleLogic AI – Signal Generator</h2>
-    <div class="candles">
-      <div class="candle-select"><select id="c1"><option value="">Candle 1</option><option value="G">🟢 Green</option><option value="R">🔴 Red</option></select></div>
-      <div class="candle-select"><select id="c2"><option value="">Candle 2</option><option value="G">🟢 Green</option><option value="R">🔴 Red</option></select></div>
-      <div class="candle-select"><select id="c3"><option value="">Candle 3</option><option value="G">🟢 Green</option><option value="R">🔴 Red</option></select></div>
-      <div class="candle-select"><select id="c4"><option value="">Candle 4</option><option value="G">🟢 Green</option><option value="R">🔴 Red</option></select></div>
-      <div class="candle-select"><select id="c5"><option value="">Running Candle</option><option value="G">🟢 Green</option><option value="R">🔴 Red</option></select></div>
+    <div class="row">
+      <select id="candle1">
+        <option value="">Select Candle 1</option>
+        <option value="green">🟢 Green</option>
+        <option value="red">🔴 Red</option>
+      </select>
+      <select id="candle2">
+        <option value="">Select Candle 2</option>
+        <option value="green">🟢 Green</option>
+        <option value="red">🔴 Red</option>
+      </select>
     </div>
-    <button class="signal-btn" onclick="generateSignal()" id="generateBtn">🚀 Generate Signal</button>
-    
-    <div class="output" id="outputBox" style="display: none;"></div>
-    <div style="display:flex; gap:4%; justify-content: space-between;">
+    <div class="row">
+      <select id="candle3">
+        <option value="">Select Candle 3</option>
+        <option value="green">🟢 Green</option>
+        <option value="red">🔴 Red</option>
+      </select>
+      <select id="candle4">
+        <option value="">Select Candle 4</option>
+        <option value="green">🟢 Green</option>
+        <option value="red">🔴 Red</option>
+      </select>
+    </div>
+    <div class="row">
+      <select id="candle5">
+        <option value="">Select Candle 5</option>
+        <option value="green">🟢 Green</option>
+        <option value="red">🔴 Red</option>
+      </select>
+      <select id="runningCandle">
+        <option value="">Running Candle</option>
+        <option value="green">🟢 Green</option>
+        <option value="red">🔴 Red</option>
+      </select>
+    </div>
+    <button class="generate-btn" onclick="generateSignal()" id="genBtn">🚀 Generate Signal</button>
+    <div id="timerDisplay"></div>
+    <div class="output" id="signalOutput" style="display:none;">
+      <h3>✅ Signal Output Preview</h3>
+      <p id="signalLine"></p>
+      <p id="nextCandleLine"></p>
+      <p id="countLine"></p>
+      <p id="runningLine"></p>
+      <p id="statusLine"></p>
+      <p id="ruleLine"></p>
       <button class="copy-btn" onclick="copySignal()">📋 Copy Signal</button>
-      <button class="reset-btn" onclick="resetOutput()">🔁 Reset</button>
+      <button class="rules-link" onclick="resetSignal()">🔁 Reset</button>
     </div>
-    <div class="time" id="timerText"></div>
   </div>
 
   <script>
-    let lockUntil = null;
-
+    let timer;
     function generateSignal() {
-      const c1 = document.getElementById('c1').value;
-      const c2 = document.getElementById('c2').value;
-      const c3 = document.getElementById('c3').value;
-      const c4 = document.getElementById('c4').value;
-      const c5 = document.getElementById('c5').value;
-      const all = [c1, c2, c3, c4, c5];
+      const candles = [
+        document.getElementById('candle1').value,
+        document.getElementById('candle2').value,
+        document.getElementById('candle3').value,
+        document.getElementById('candle4').value,
+        document.getElementById('candle5').value
+      ];
+      const running = document.getElementById('runningCandle').value;
 
-      if (all.some(v => v === '')) {
-        alert('❗ Please select all 5 candles.');
+      const greens = candles.filter(c => c === 'green').length;
+      const reds = candles.filter(c => c === 'red').length;
+
+      let signal = 'WAIT';
+      let valid = true;
+
+      if (candles.includes('') || running === '') {
+        alert('Please select all candles including running candle.');
         return;
       }
 
-      const reds = all.slice(0,4).filter(c => c === 'R').length;
-      const greens = all.slice(0,4).filter(c => c === 'G').length;
-      let signal = 'WAIT';
-
-      if (reds > greens && c5 === 'G') signal = 'PUT';
-      else if (greens > reds && c5 === 'R') signal = 'CALL';
-      else signal = 'INVALID';
+      if (greens > reds && running !== 'green') signal = 'CALL';
+      else if (reds > greens && running !== 'red') signal = 'PUT';
+      else valid = false;
 
       const now = new Date();
-      const bdNow = new Date(now.getTime() + (6 * 60 * 60 * 1000));
-      const currentTime = bdNow.toTimeString().slice(0,5);
-      bdNow.setMinutes(bdNow.getMinutes() + 1);
-      const nextTime = bdNow.toTimeString().slice(0,5);
-      lockUntil = bdNow;
+      const next = new Date(now.getTime() + 60000);
+      const timeStr = now.toTimeString().slice(0,5);
+      const nextStr = next.toTimeString().slice(0,5);
 
-      let result = `✅ Signal Output Preview\n📡 Signal Type: ⬇ ${signal}\n➡️ Next Candle Time: ${nextTime}\n🟢 Green: ${greens}     🔴 Red: ${reds}\n📶 Running Candle: ${c5 === 'G' ? '🟢 GREEN' : '🔴 RED'}\n⏰ Signal Time: ${currentTime}`;
-      document.getElementById('outputBox').style.display = 'block';
-      document.getElementById('outputBox').innerText = result;
-      document.getElementById('generateBtn').disabled = true;
+      document.getElementById('signalLine').textContent = `📱 Signal Type: ${signal === 'CALL' ? '⬆ CALL' : signal === 'PUT' ? '⬇ PUT' : '⏸ WAIT'}`;
+      document.getElementById('nextCandleLine').textContent = `➡️ Next Candle Time: ${nextStr}`;
+      document.getElementById('countLine').textContent = `🟢 Green: ${greens}      🔴 Red: ${reds}`;
+      document.getElementById('runningLine').textContent = `📶 Running Candle: ${running === 'green' ? '🟢 GREEN' : '🔴 RED'}`;
+      document.getElementById('statusLine').textContent = `📌 Status: ${valid ? '✅ VALID' : '❌ INVALID'}`;
+      document.getElementById('ruleLine').textContent = valid ? '✅ Matches 1st Step MTG Rule' : '⚠️ Last Candle Matches Running Candle';
 
-      startCountdown();
+      document.getElementById('signalOutput').style.display = 'block';
+      document.getElementById('genBtn').disabled = true;
+
+      let countdown = 60;
+      timer = setInterval(() => {
+        countdown--;
+        document.getElementById('timerDisplay').textContent = `⏳ Next Signal In: ${countdown}s`;
+        if (countdown <= 0) {
+          clearInterval(timer);
+          document.getElementById('timerDisplay').textContent = '';
+          document.getElementById('genBtn').disabled = false;
+        }
+      }, 1000);
     }
 
     function copySignal() {
-      const text = document.getElementById('outputBox').innerText;
-      navigator.clipboard.writeText(text);
-      alert("✅ Signal copied!");
+      const signalText = `📡 Signal Type: ${document.getElementById('signalLine').textContent.split(': ')[1]}\n➡️ Next Candle Time: ${document.getElementById('nextCandleLine').textContent.split(': ')[1]}\n${document.getElementById('countLine').textContent}\n${document.getElementById('runningLine').textContent}\n${document.getElementById('statusLine').textContent}`;
+      navigator.clipboard.writeText(signalText).then(() => alert('Signal Copied!'));
     }
 
-    function resetOutput() {
-      document.getElementById('outputBox').innerText = '';
-      document.getElementById('outputBox').style.display = 'none';
-      document.getElementById('generateBtn').disabled = false;
-      document.getElementById('timerText').innerText = '';
-      lockUntil = null;
-    }
-
-    function startCountdown() {
-      const timer = document.getElementById('timerText');
-      const interval = setInterval(() => {
-        const now = new Date();
-        if (!lockUntil || now >= lockUntil) {
-          timer.innerText = '';
-          document.getElementById('generateBtn').disabled = false;
-          clearInterval(interval);
-        } else {
-          const diff = Math.floor((lockUntil - now) / 1000);
-          timer.innerText = `⏳ Next signal in: ${diff}s`;
-        }
-      }, 1000);
+    function resetSignal() {
+      clearInterval(timer);
+      document.getElementById("signalOutput").style.display = 'none';
+      document.getElementById("signalLine").textContent = '';
+      document.getElementById("nextCandleLine").textContent = '';
+      document.getElementById("countLine").textContent = '';
+      document.getElementById("runningLine").textContent = '';
+      document.getElementById("statusLine").textContent = '';
+      document.getElementById("ruleLine").textContent = '';
+      document.getElementById("timerDisplay").textContent = '';
+      document.getElementById("genBtn").disabled = false;
     }
   </script>
 </body>
