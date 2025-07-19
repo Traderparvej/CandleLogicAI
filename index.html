@@ -2,105 +2,103 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CandleLogic AI – Login</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
-    body {
+    * {
       margin: 0;
       padding: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+    body {
+      height: 100vh;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      color: #fff;
     }
-
     .login-box {
-      background: #ffffff10;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid #ffffff22;
+      backdrop-filter: blur(10px);
       padding: 40px;
       border-radius: 16px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 25px #00000055;
       text-align: center;
-      width: 350px;
-      color: white;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     }
-
     .logo {
-      font-size: 36px;
-      font-weight: bold;
+      font-size: 2rem;
+      margin-bottom: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
+      font-weight: bold;
     }
-
     .logo img {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
+      filter: drop-shadow(0 0 4px rgba(255,255,255,0.5));
     }
-
-    .login-box input[type="password"] {
+    .login-box h2 {
+      margin-bottom: 20px;
+    }
+    input[type="password"] {
       padding: 10px;
-      width: 80%;
-      margin: 20px auto;
+      width: 100%;
       border: none;
-      border-radius: 6px;
-      font-size: 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 1rem;
     }
-
-    .login-box button {
-      background: #00c853;
-      color: white;
+    button {
+      padding: 10px 30px;
       border: none;
-      padding: 10px 25px;
-      font-size: 16px;
-      border-radius: 6px;
+      background-color: #00c9a7;
+      color: #fff;
+      border-radius: 8px;
+      font-size: 1rem;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: 0.3s ease;
     }
-
-    .login-box button:hover {
-      background: #00b344;
+    button:hover {
+      background-color: #00b39f;
     }
-
-    .footer {
-      margin-top: 15px;
-      font-size: 14px;
-      opacity: 0.8;
+    .telegram-link {
+      margin-top: 20px;
+      font-size: 0.9rem;
     }
-
-    .footer a {
-      color: #00e676;
+    .telegram-link a {
+      color: #00c9a7;
       text-decoration: none;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
   <div class="login-box">
     <div class="logo">
-      <img src="https://cdn-icons-png.flaticon.com/512/4743/4743094.png" alt="Candle Icon">
-      CandleLogic AI
+      <img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png" alt="Candle Icon"/>
+      <span>CandleLogic AI</span>
     </div>
-    <p style="margin-top: 20px; font-weight: 500;">🔒 Enter Password to Continue</p>
-    <input type="password" id="password" placeholder="Enter password...">
-    <br />
+    <h2>🔒 Enter Password to Access Signals</h2>
+    <input type="password" id="passwordInput" placeholder="Enter Password"/>
     <button onclick="checkPassword()">Login</button>
-    <div class="footer">
-      Need access? Contact <a href="https://t.me/QXParvej" target="_blank">@QXParvej</a>
+    <div class="telegram-link">
+      👉 Get password from <a href="https://t.me/QXParvej" target="_blank">@QXParvej</a>
     </div>
   </div>
 
   <script>
     function checkPassword() {
-      const correctPassword = "11115";
-      const userPassword = document.getElementById("password").value;
-      if (userPassword === correctPassword) {
+      const input = document.getElementById('passwordInput').value;
+      if (input === "11115") {
         window.location.href = "signal.html";
       } else {
-        alert("Incorrect password! Please try again.");
+        alert("Incorrect Password");
       }
     }
   </script>
