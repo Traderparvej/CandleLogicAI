@@ -4,109 +4,99 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CandleLogic AI – Signal Generator</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      background: rgba(0,0,0,0.3);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    .candles {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    select {
+      padding: 10px 14px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      background: #fff;
+      color: #000;
+      min-width: 100px;
+    }
+
+    .actions {
+      margin-top: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      background-color: #00c6ff;
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #00a6dd;
+    }
+
+    .emoji {
+      font-size: 22px;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    <h2>🧠 CandleLogic AI – Signal Generator</h2>
-    <div class="form-section">
-      <div class="input-group">
-        <label>Select Last 5 Candles:</label>
-        <div class="candle-selectors">
-          <select id="candle1">
-            <option value="">--</option>
-            <option value="green">🟢 Green</option>
-            <option value="red">🔴 Red</option>
-          </select>
-          <select id="candle2">
-            <option value="">--</option>
-            <option value="green">🟢 Green</option>
-            <option value="red">🔴 Red</option>
-          </select>
-          <select id="candle3">
-            <option value="">--</option>
-            <option value="green">🟢 Green</option>
-            <option value="red">🔴 Red</option>
-          </select>
-          <select id="candle4">
-            <option value="">--</option>
-            <option value="green">🟢 Green</option>
-            <option value="red">🔴 Red</option>
-          </select>
-          <select id="candle5">
-            <option value="">--</option>
-            <option value="green">🟢 Green</option>
-            <option value="red">🔴 Red</option>
-          </select>
-        </div>
-      </div>
+    <h2><span class="emoji">🧠</span> CandleLogic AI – Signal Generator</h2>
 
-      <div class="input-group">
-        <label>Running Candle:</label>
-        <select id="runningCandle">
-          <option value="">--</option>
-          <option value="green">🟢 Green</option>
-          <option value="red">🔴 Red</option>
-        </select>
-      </div>
-
-      <button onclick="generateSignal()">🚀 Generate Signal</button>
+    <div class="candles">
+      <select id="candle1"><option>--</option><option>🟢 Green</option><option>🔴 Red</option></select>
+      <select id="candle2"><option>--</option><option>🟢 Green</option><option>🔴 Red</option></select>
+      <select id="candle3"><option>--</option><option>🟢 Green</option><option>🔴 Red</option></select>
+      <select id="candle4"><option>--</option><option>🟢 Green</option><option>🔴 Red</option></select>
+      <select id="candle5"><option>--</option><option>🟢 Green</option><option>🔴 Red</option></select>
     </div>
 
-    <div id="signal-output" class="output-box" style="display:none;"></div>
+    <div class="actions">
+      <label for="running">Running Candle:</label>
+      <select id="running"><option>--</option><option>🟢 Green</option><option>🔴 Red</option></select>
+    </div>
+
+    <div class="actions" style="margin-top: 20px;">
+      <button onclick="generateSignal()">🚀 Generate Signal</button>
+    </div>
   </div>
 
   <script>
     function generateSignal() {
-      const candles = [
-        document.getElementById("candle1").value,
-        document.getElementById("candle2").value,
-        document.getElementById("candle3").value,
-        document.getElementById("candle4").value,
-        document.getElementById("candle5").value
-      ];
-
-      const running = document.getElementById("runningCandle").value;
-
-      if (candles.includes("") || running === "") {
-        alert("Please select all candle colors.");
-        return;
-      }
-
-      let greenCount = candles.filter(c => c === "green").length;
-      let redCount = candles.filter(c => c === "red").length;
-
-      const lastCandle = candles[4];
-      const signalTime = new Date();
-      const signalHH = String(signalTime.getHours()).padStart(2, '0');
-      const signalMM = String(signalTime.getMinutes()).padStart(2, '0');
-      const signalTimestamp = `${signalHH}:${signalMM}`;
-      const nextMinute = new Date(signalTime.getTime() + 60000);
-      const nextHH = String(nextMinute.getHours()).padStart(2, '0');
-      const nextMM = String(nextMinute.getMinutes()).padStart(2, '0');
-      const nextTimestamp = `${nextHH}:${nextMM}`;
-
-      let signal = "WAIT";
-      let valid = true;
-
-      if (lastCandle === running) {
-        valid = false;
-      } else if (greenCount > redCount) {
-        signal = "PUT";
-      } else if (redCount > greenCount) {
-        signal = "CALL";
-      }
-
-      const outputBox = document.getElementById("signal-output");
-      outputBox.style.display = "block";
-      outputBox.innerHTML = `
-        ✅ Signal Output Preview<br>
-        📡 Signal Type: ⬇ ${signal}<br>
-        ➡️ Next Candle Time: ${nextTimestamp}<br>
-        🟢 Green: ${greenCount} &nbsp;&nbsp; 🔴 Red: ${redCount}<br>
-        📶 Running Candle: ${running === 'green' ? '🟢 GREEN' : '🔴 RED'}<br>
-        ${valid ? "🟩 VALID Signal" : "🟥 INVALID Signal"}
-      `;
+      alert("Signal generation logic will be added here.");
     }
   </script>
 </body>
