@@ -94,3 +94,54 @@
   </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CandleLogic AI – Login</title>
+  <style>
+    body{margin:0;font-family:sans-serif;background:#0b0f15;color:#fff;
+      display:flex;justify-content:center;align-items:center;height:100vh;}
+    .box{background:rgba(255,255,255,0.05);padding:30px;border-radius:12px;
+      text-align:center;box-shadow:0 0 20px rgba(0,200,150,0.3);width:360px;}
+    .candles{display:flex;justify-content:center;gap:12px;margin-bottom:20px;}
+    .candle{width:14px;height:40px;position:relative;border-radius:3px;animation:move 1s ease-in-out infinite alternate;}
+    .green{background:#00e676;}
+    .red{background:#ff3d00;animation-delay:-0.5s;}
+    .wick{position:absolute;left:50%;transform:translateX(-50%);width:2px;background:#000;}
+    .wick.top{top:-10px;height:10px;}
+    .wick.bottom{bottom:-10px;height:10px;}
+    @keyframes move{0%{transform:translateY(0);}100%{transform:translateY(-5px);}
+    }
+    h1{font-size:24px;color:#38bdf8;margin:0 0 10px;}
+    h1 span{color:#facc15;}
+    p{margin:5px 0;}
+    input{width:100%;padding:10px;margin:15px 0;border:none;border-radius:6px;font-size:16px;}
+    button{width:100%;padding:10px;background:#0ea5e9;border:none;border-radius:6px;
+      color:#fff;font-size:16px;cursor:pointer;transition:0.3s;}
+    button:hover{background:#0284c7;}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="candles">
+      <div class="candle green"><div class="wick top"></div><div class="wick bottom"></div></div>
+      <div class="candle red"><div class="wick top"></div><div class="wick bottom"></div></div>
+    </div>
+    <h1>CandleLogic <span>AI</span></h1>
+    <p>Real-Time Signal, Real Profit – Powered by AI</p>
+    <form onsubmit="return checkPass()">
+      <input type="password" id="pw" placeholder="🔒 Enter Password" required>
+      <button type="submit">Login</button>
+    </form>
+    <p>🔐 To get the password, contact 👉 <strong>@QXParvej</strong></p>
+  </div>
+  <script>
+    function checkPass(){
+      if(document.getElementById('pw').value==='11115') return true;
+      alert('❌ Wrong Password!');
+      return false;
+    }
+  </script>
+</body>
+</html>
