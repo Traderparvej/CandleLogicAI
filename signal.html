@@ -2,244 +2,59 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CandleLogic AI – Signal</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CandleLogic AI – Signal Generator</title>
   <style>
     body {
       margin: 0;
+      padding: 0;
+      background: #0d1117;
       font-family: 'Segoe UI', sans-serif;
-      background: #0b0f15;
-      color: #fff;
-      padding: 20px;
+      color: #ffffff;
     }
-
-    h2 {
-      color: #00ffcc;
+    .header {
       text-align: center;
-    }
-
-    .section {
-      background: #111722;
       padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 8px rgba(0,255,200,0.1);
+      position: relative;
     }
-
-    .section label {
-      display: block;
-      margin-bottom: 8px;
-      color: #ccc;
+    .header h1 {
+      font-size: 28px;
+      color: #f1c40f;
+      text-shadow: 0 0 5px #f1c40f, 0 0 10px #f39c12;
+      animation: glow 2s ease-in-out infinite alternate;
     }
-
-    select, button {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border-radius: 6px;
-      border: none;
-      background: #1c2530;
-      color: #fff;
-      font-size: 16px;
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 5px #f1c40f;
+      }
+      to {
+        text-shadow: 0 0 20px #f39c12;
+      }
     }
-
-    .candle-select {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+    .candle-animation {
+      width: 40px;
+      height: 40px;
+      background-image: url('https://i.gifer.com/7efs.gif');
+      background-size: cover;
+      position: absolute;
+      top: 10px;
+      left: 10px;
     }
-
-    .candle-select select {
-      flex: 1 1 48%;
-    }
-
-    .output {
-      background: #0f141c;
+    .content {
       padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,255,200,0.15);
-      margin-top: 20px;
-    }
-
-    .output p {
-      margin: 8px 0;
-      font-size: 16px;
-    }
-
-    .output .valid { color: #00ff88; }
-    .output .invalid { color: #ff4c4c; }
-
-    .copy-btn, .rules-link {
-      display: block;
-      margin-top: 10px;
-      background: #00ffcc;
-      color: #000;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
       text-align: center;
-      text-decoration: none;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .rules-link {
-      background: #007c99;
-      color: #fff;
     }
   </style>
 </head>
 <body>
-
-  <h2><div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 30px; margin-bottom: 35px;">
-  <img src="https://cdn.pixabay.com/animation/2022/11/14/06/18/06-18-55-306_512.gif" alt="Candle" style="width: 48px; height: 48px;" />
-  <h2 style="
-    font-size: 28px;
-    font-weight: 800;
-    color: #00ffc8;
-    margin: 0;
-    animation: glow 2s ease-in-out infinite alternate;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  ">
-    CandleLogic AI – Signal Generator
-  </h2>
-</div>
-
-<style>
-@keyframes glow {
-  from {
-    text-shadow: 0 0 10px #00ffc8, 0 0 20px #00ffc8, 0 0 30px #00ffc8;
-  }
-  to {
-    text-shadow: 0 0 20px #00ffd5, 0 0 30px #00ffd5, 0 0 40px #00ffd5;
-  }
-}
-</style>
-
-  </h2>
-</div>
-
-  </h2>
-</div>
-
-  </h2>
-</div>
-
-  </h2>
-</div>
-</h2>
-
-  <div class="section">
-    <label>Market</label>
-    <select id="market">
-      <option>Binary</option>
-      <option>OTC</option>
-      <option>Real</option>
-    </select>
-
-    <label>Timezone</label>
-    <select id="timezone">
-      <option value="+0600">GMT+6 (BD Time)</option>
-      <option value="+0530">GMT+5:30 (India)</option>
-      <option value="+0000">GMT (UTC)</option>
-    </select>
-
-    <label>Pair</label>
-    <select id="pair">
-      <option>EUR/USD</option>
-      <option>GBP/JPY</option>
-      <option>USD/JPY</option>
-      <option>AUD/CHF</option>
-    </select>
+  <div class="header">
+    <div class="candle-animation"></div>
+    <h1>CandleLogic AI – TraderParvej</h1>
   </div>
 
-  <div class="section">
-    <label>Last 5 Candles</label>
-    <div class="candle-select">
-      <select id="c1">
-        <option value="">Select</option>
-        <option value="green">🟢 Green</option>
-        <option value="red">🔴 Red</option>
-      </select>
-      <select id="c2">
-        <option value="">Select</option>
-        <option value="green">🟢 Green</option>
-        <option value="red">🔴 Red</option>
-      </select>
-      <select id="c3">
-        <option value="">Select</option>
-        <option value="green">🟢 Green</option>
-        <option value="red">🔴 Red</option>
-      </select>
-      <select id="c4">
-        <option value="">Select</option>
-        <option value="green">🟢 Green</option>
-        <option value="red">🔴 Red</option>
-      </select>
-      <select id="c5">
-        <option value="">Select</option>
-        <option value="green">🟢 Green</option>
-        <option value="red">🔴 Red</option>
-      </select>
-    </div>
-
-    <label>Running Candle</label>
-    <select id="running">
-      <option value="">Select</option>
-      <option value="green">🟢 Green</option>
-      <option value="red">🔴 Red</option>
-    </select>
-
-    <button onclick="generateSignal()">Generate Signal</button>
+  <div class="content">
+    <!-- Signal Input Form Here -->
+    <!-- You can paste the full signal generator form code here -->
   </div>
-
-  <div class="output" id="signalOutput" style="display:none;">
-    <h3>✅ Signal Output Preview</h3>
-    <p id="signalLine">📡 Signal Type: ⬇ PUT</p>
-    <p id="nextCandleLine">➡️ Next Candle Time: 14:33</p>
-    <p id="countLine">🟢 Green: 2     🔴 Red: 3</p>
-    <p id="runningLine">📶 Running Candle: 🟢 GREEN</p>
-    <p id="statusLine">📌 Status: ✅ VALID</p>
-    <p id="ruleLine">✅ Matches 1st Step MTG Rule</p>
-    <button class="copy-btn" onclick="copySignal()">📋 Copy Signal</button>
-    <a href="#" class="rules-link">📘 Signal Rules</a>
-  </div>
-
-  <script>
-    function generateSignal() {
-      const candles = ["c1","c2","c3","c4","c5"].map(id => document.getElementById(id).value);
-      const running = document.getElementById("running").value;
-      if (candles.includes("") || !running) {
-        alert("Please select all candles and running candle.");
-        return;
-      }
-      const green = candles.filter(c => c === 'green').length;
-      const red = candles.filter(c => c === 'red').length;
-
-      const signal = green > red ? '⬇ PUT' : red > green ? '⬆ CALL' : 'WAIT';
-      const valid = candles[4] !== running;
-
-      const now = new Date();
-      const hh = now.getHours().toString().padStart(2,'0');
-      const mm = now.getMinutes().toString().padStart(2,'0');
-      const nextMin = (now.getMinutes() + 1) % 60;
-      const nextTime = `${hh}:${nextMin.toString().padStart(2,'0')}`;
-
-      document.getElementById("signalLine").textContent = `📡 Signal Type: ${signal}`;
-      document.getElementById("nextCandleLine").textContent = `➡️ Next Candle Time: ${nextTime}`;
-      document.getElementById("countLine").textContent = `🟢 Green: ${green}     🔴 Red: ${red}`;
-      document.getElementById("runningLine").textContent = `📶 Running Candle: ${running === 'green' ? '🟢 GREEN' : '🔴 RED'}`;
-      document.getElementById("statusLine").textContent = `📌 Status: ${valid ? '✅ VALID' : '❌ INVALID'}`;
-      document.getElementById("ruleLine").textContent = valid ? '✅ Matches 1st Step MTG Rule' : '❌ Doesn\'t match Running Candle';
-      document.getElementById("signalOutput").style.display = 'block';
-    }
-
-    function copySignal() {
-      const text = document.getElementById("signalOutput").innerText;
-      navigator.clipboard.writeText(text).then(() => alert("Signal copied!"));
-    }
-  </script>
-
 </body>
 </html>
