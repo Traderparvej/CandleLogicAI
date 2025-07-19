@@ -4,167 +4,110 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CandleLogic AI – Signal Generator</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #0b0f15;
-      color: #fff;
-      padding: 30px 20px;
-    }
-
-    .container {
-      max-width: 700px;
-      margin: auto;
-      background: #111722;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,255,150,0.08);
-    }
-
-    /* 🕯️ Candlestick Logo */
-    .candle-logo {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-bottom: 15px;
-    }
-
-    .candle {
-      width: 10px;
-      height: 40px;
-      position: relative;
-      border-radius: 2px;
-      animation: flicker 1s infinite alternate;
-    }
-
-    .green {
-      background-color: #00ff88;
-    }
-
-    .red {
-      background-color: #ff4c4c;
-    }
-
-    .candle::before,
-    .candle::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      width: 2px;
-      background: #000;
-      transform: translateX(-50%);
-    }
-
-    .candle::before {
-      top: -10px;
-      height: 10px;
-    }
-
-    .candle::after {
-      bottom: -10px;
-      height: 10px;
-    }
-
-    @keyframes flicker {
-      0% {
-        opacity: 0.85;
-        transform: scaleY(1);
-      }
-      100% {
-        opacity: 1;
-        transform: scaleY(1.1);
-      }
-    }
-
-    h2 {
-      text-align: center;
-      color: #00d9ff;
-      margin: 5px 0 20px;
-    }
-
-    h2 span {
-      color: #ffc107;
-    }
-
-    select, button {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      font-size: 16px;
-      border-radius: 6px;
-      border: none;
-    }
-
-    button {
-      background-color: #2196f3;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background-color: #1976d2;
-    }
-
-    .row {
-      display: flex;
-      gap: 10px;
-    }
-
-    .row select {
-      flex: 1;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <!-- 🕯️ Animated Candle Logo -->
-    <div class="candle-logo">
-      <div class="candle green"></div>
-      <div class="candle red"></div>
+    <h2>🧠 CandleLogic AI – Signal Generator</h2>
+    <div class="form-section">
+      <div class="input-group">
+        <label>Select Last 5 Candles:</label>
+        <div class="candle-selectors">
+          <select id="candle1">
+            <option value="">--</option>
+            <option value="green">🟢 Green</option>
+            <option value="red">🔴 Red</option>
+          </select>
+          <select id="candle2">
+            <option value="">--</option>
+            <option value="green">🟢 Green</option>
+            <option value="red">🔴 Red</option>
+          </select>
+          <select id="candle3">
+            <option value="">--</option>
+            <option value="green">🟢 Green</option>
+            <option value="red">🔴 Red</option>
+          </select>
+          <select id="candle4">
+            <option value="">--</option>
+            <option value="green">🟢 Green</option>
+            <option value="red">🔴 Red</option>
+          </select>
+          <select id="candle5">
+            <option value="">--</option>
+            <option value="green">🟢 Green</option>
+            <option value="red">🔴 Red</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Running Candle:</label>
+        <select id="runningCandle">
+          <option value="">--</option>
+          <option value="green">🟢 Green</option>
+          <option value="red">🔴 Red</option>
+        </select>
+      </div>
+
+      <button onclick="generateSignal()">🚀 Generate Signal</button>
     </div>
 
-    <h2>CandleLogic <span>AI</span> – Signal Generator</h2>
-
-    <!-- 🔽 Signal Generator Form -->
-    <form id="signalForm">
-      <label>Market</label>
-      <select>
-        <option>Binary</option>
-        <option>OTC</option>
-        <option>Real</option>
-      </select>
-
-      <label>Timezone</label>
-      <select>
-        <option>GMT+6 (BD Time)</option>
-        <!-- Other timezones can be added -->
-      </select>
-
-      <label>Pair</label>
-      <select>
-        <option>EUR/USD</option>
-        <!-- Add other pairs -->
-      </select>
-
-      <label>Last 5 Candles</label>
-      <div class="row">
-        <select><option>Select</option></select>
-        <select><option>Select</option></select>
-      </div>
-      <div class="row">
-        <select><option>Select</option></select>
-        <select><option>Select</option></select>
-      </div>
-      <select><option>Select</option></select>
-
-      <label>Running Candle</label>
-      <select><option>Select</option></select>
-
-      <button type="submit">Generate Signal</button>
-    </form>
+    <div id="signal-output" class="output-box" style="display:none;"></div>
   </div>
+
+  <script>
+    function generateSignal() {
+      const candles = [
+        document.getElementById("candle1").value,
+        document.getElementById("candle2").value,
+        document.getElementById("candle3").value,
+        document.getElementById("candle4").value,
+        document.getElementById("candle5").value
+      ];
+
+      const running = document.getElementById("runningCandle").value;
+
+      if (candles.includes("") || running === "") {
+        alert("Please select all candle colors.");
+        return;
+      }
+
+      let greenCount = candles.filter(c => c === "green").length;
+      let redCount = candles.filter(c => c === "red").length;
+
+      const lastCandle = candles[4];
+      const signalTime = new Date();
+      const signalHH = String(signalTime.getHours()).padStart(2, '0');
+      const signalMM = String(signalTime.getMinutes()).padStart(2, '0');
+      const signalTimestamp = `${signalHH}:${signalMM}`;
+      const nextMinute = new Date(signalTime.getTime() + 60000);
+      const nextHH = String(nextMinute.getHours()).padStart(2, '0');
+      const nextMM = String(nextMinute.getMinutes()).padStart(2, '0');
+      const nextTimestamp = `${nextHH}:${nextMM}`;
+
+      let signal = "WAIT";
+      let valid = true;
+
+      if (lastCandle === running) {
+        valid = false;
+      } else if (greenCount > redCount) {
+        signal = "PUT";
+      } else if (redCount > greenCount) {
+        signal = "CALL";
+      }
+
+      const outputBox = document.getElementById("signal-output");
+      outputBox.style.display = "block";
+      outputBox.innerHTML = `
+        ✅ Signal Output Preview<br>
+        📡 Signal Type: ⬇ ${signal}<br>
+        ➡️ Next Candle Time: ${nextTimestamp}<br>
+        🟢 Green: ${greenCount} &nbsp;&nbsp; 🔴 Red: ${redCount}<br>
+        📶 Running Candle: ${running === 'green' ? '🟢 GREEN' : '🔴 RED'}<br>
+        ${valid ? "🟩 VALID Signal" : "🟥 INVALID Signal"}
+      `;
+    }
+  </script>
 </body>
 </html>
