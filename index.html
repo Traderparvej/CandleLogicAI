@@ -1,132 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CandleLogic AI – Login</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Roboto',sans-serif; }
-    body {
-      height:100vh;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      color:#fff;
-    }
-    .login-box {
-      background: rgba(255,255,255,0.05);
-      border:1px solid rgba(255,255,255,0.13);
-      backdrop-filter:blur(10px);
-      padding:40px;
-      border-radius:16px;
-      text-align:center;
-      width:360px;
-      box-shadow:0 8px 32px rgba(31,38,135,0.37);
-    }
-    .logo {
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:12px;
-      margin-bottom:20px;
-    }
-    .logo img {
-      width:40px;
-      height:40px;
-      filter: drop-shadow(0 0 6px rgba(0,255,255,0.7));
-    }
-    input[type="password"] {
-      width:100%;
-      padding:10px;
-      margin:20px 0;
-      border:none;
-      border-radius:8px;
-      font-size:1rem;
-    }
-    button {
-      padding:10px 30px;
-      background-color:#00c9a7;
-      border:none;
-      border-radius:8px;
-      font-size:1rem;
-      color:#fff;
-      cursor:pointer;
-      transition:0.3s ease;
-    }
-    button:hover {
-      background-color:#00b39f;
-    }
-    .telegram-link {
-      margin-top:20px;
-      font-size:0.9rem;
-    }
-    .telegram-link a {
-      color:#00c9a7;
-      text-decoration:none;
-      font-weight:600;
-    }
-  </style>
-</head>
-<body>
-  <div class="login-box">
-    <div class="logo">
-      <img src="img/logo.png" alt="CandleLogic AI Logo" />
-      <span style="font-size:1.5rem; font-weight:700;">CandleLogic AI</span>
-    </div>
-    <h2>🔒 Enter Password to Access Signals</h2>
-    <input type="password" id="passwordInput" placeholder="Enter Password"/>
-    <button onclick="checkPassword()">Login</button>
-    <div class="telegram-link">
-      👉 Get password from <a href="https://t.me/QXParvej" target="_blank">@QXParvej</a>
-    </div>
-  </div>
-  <script>
-    function checkPassword(){
-      const pw = document.getElementById('passwordInput').value;
-      if(pw === "11115"){
-        window.location.href = "signal.html";
-      } else {
-        alert("Incorrect Password");
-      }
-    }
-  </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CandleLogic AI – Login</title>
   <style>
-    body{margin:0;font-family:sans-serif;background:#0b0f15;color:#fff;
-      display:flex;justify-content:center;align-items:center;height:100vh;}
-    .box{background:rgba(255,255,255,0.05);padding:30px;border-radius:12px;
-      text-align:center;box-shadow:0 0 20px rgba(0,200,150,0.3);width:360px;}
-    .candles{display:flex;justify-content:center;gap:12px;margin-bottom:20px;}
-    .candle{width:14px;height:40px;position:relative;border-radius:3px;animation:move 1s ease-in-out infinite alternate;}
-    .green{background:#00e676;}
-    .red{background:#ff3d00;animation-delay:-0.5s;}
-    .wick{position:absolute;left:50%;transform:translateX(-50%);width:2px;background:#000;}
-    .wick.top{top:-10px;height:10px;}
-    .wick.bottom{bottom:-10px;height:10px;}
-    @keyframes move{0%{transform:translateY(0);}100%{transform:translateY(-5px);}
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #0b0f15;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-    h1{font-size:24px;color:#38bdf8;margin:0 0 10px;}
-    h1 span{color:#facc15;}
-    p{margin:5px 0;}
-    input{width:100%;padding:10px;margin:15px 0;border:none;border-radius:6px;font-size:16px;}
-    button{width:100%;padding:10px;background:#0ea5e9;border:none;border-radius:6px;
-      color:#fff;font-size:16px;cursor:pointer;transition:0.3s;}
-    button:hover{background:#0284c7;}
+    .box {
+      background: rgba(255,255,255,0.05);
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0,200,150,0.3);
+      width: 360px;
+    }
+    .candles {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .candle {
+      width: 14px;
+      height: 40px;
+      position: relative;
+      border-radius: 3px;
+      animation: move 1s ease-in-out infinite alternate;
+    }
+    .green {
+      background: #00e676;
+    }
+    .red {
+      background: #ff3d00;
+      animation-delay: -0.5s;
+    }
+    .wick {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      background: #000;
+    }
+    .wick.top {
+      top: -10px;
+      height: 10px;
+    }
+    .wick.bottom {
+      bottom: -10px;
+      height: 10px;
+    }
+    @keyframes move {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-5px); }
+    }
+    h1 {
+      font-size: 24px;
+      color: #38bdf8;
+      margin: 0 0 10px;
+    }
+    h1 span {
+      color: #facc15;
+    }
+    p {
+      margin: 5px 0;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 15px 0;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #0ea5e9;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #0284c7;
+    }
   </style>
 </head>
 <body>
   <div class="box">
     <div class="candles">
-      <div class="candle green"><div class="wick top"></div><div class="wick bottom"></div></div>
-      <div class="candle red"><div class="wick top"></div><div class="wick bottom"></div></div>
+      <div class="candle green">
+        <div class="wick top"></div>
+        <div class="wick bottom"></div>
+      </div>
+      <div class="candle red">
+        <div class="wick top"></div>
+        <div class="wick bottom"></div>
+      </div>
     </div>
     <h1>CandleLogic <span>AI</span></h1>
     <p>Real-Time Signal, Real Profit – Powered by AI</p>
@@ -136,39 +116,16 @@
     </form>
     <p>🔐 To get the password, contact 👉 <strong>@QXParvej</strong></p>
   </div>
+
   <script>
-    function checkPass(){
-      if(document.getElementById('pw').value==='11115') return true;
+    function checkPass() {
+      if (document.getElementById('pw').value === '11115') {
+        window.location.href = 'signal.html';
+        return false;
+      }
       alert('❌ Wrong Password!');
       return false;
     }
   </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CandleLogic AI – Login</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="login-box">
-    <div class="logo">
-      <div style="font-size: 40px; text-align: center;">
-        <span style="color: red;">▮</span><span style="color: green;">▮</span>
-      </div>
-      <h2><span style="color:#00aaff">Candle</span><span style="color:orange">Logic</span> AI</h2>
-      <p>Real-Time Signal, Real Profit – Powered by AI</p>
-    </div>
-    <form>
-      <input type="password" placeholder="🔒 Enter Password" />
-      <button type="submit">Login</button>
-    </form>
-    <p style="font-size: 14px; color: #ffc107; margin-top: 10px;">
-      🔐 To get the password, contact 👉 <strong>@QXParvej</strong>
-    </p>
-  </div>
 </body>
 </html>
