@@ -4,223 +4,181 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CandleLogic AI – Signal Generator</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: #0f1218;
+      background: #0d1117;
       color: #fff;
-      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
     }
     h1 {
-      text-align: center;
       margin-bottom: 20px;
+      font-size: 32px;
     }
-    .container {
-      max-width: 480px;
-      margin: 0 auto;
-      background: #1b1f27;
-      padding: 20px;
-      border-radius: 16px;
-      box-shadow: 0 0 12px rgba(0,0,0,0.6);
+    .box {
+      background: #161b22;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #0d1117;
+      width: 90%;
+      max-width: 450px;
     }
-    .select-label {
-      margin-bottom: 4px;
-      font-size: 14px;
-      color: #ccc;
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      font-weight: bold;
     }
     select {
       width: 100%;
       padding: 10px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      border: none;
-      background: #2a2f3a;
-      color: #fff;
-      font-size: 15px;
-    }
-    .candle-selection {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    .candle-box {
-      flex: 1 0 48%;
-      background: #20242d;
-      border-radius: 10px;
-      text-align: center;
-      padding: 10px;
-      cursor: pointer;
-      user-select: none;
-    }
-    .candle-box.red {
-      border: 2px solid #f44336;
-    }
-    .candle-box.green {
-      border: 2px solid #4caf50;
-    }
-    .candle-box.active {
-      box-shadow: 0 0 5px 2px #00c853 inset;
-    }
-    button {
-      width: 100%;
-      padding: 12px;
-      background: #00c853;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      color: #fff;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .signal-output {
-      margin-top: 25px;
-      background: #161b22;
-      border-left: 5px solid #00c853;
-      padding: 16px;
-      border-radius: 12px;
-      position: relative;
-    }
-    .output-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      font-size: 15px;
-    }
-    .label {
-      color: #ccc;
-    }
-    .value {
-      font-weight: bold;
-    }
-    .value.put {
-      color: #f44336;
-    }
-    .value.call {
-      color: #4caf50;
-    }
-    .value.invalid {
-      color: #f44336;
-    }
-    .value.valid {
-      color: #00c853;
-    }
-    .dot {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      margin-right: 5px;
-    }
-    .dot.red {
-      background: #f44336;
-    }
-    .dot.green {
-      background: #4caf50;
-    }
-    .copy-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: #2e7d32;
-      border: none;
-      padding: 6px 10px;
+      background: #0d1117;
+      border: 2px solid #444;
       border-radius: 6px;
-      font-size: 12px;
       color: #fff;
+      font-size: 16px;
+    }
+    select:focus {
+      outline: none;
+      border-color: #00ff99;
+    }
+    .button {
+      background: #00ff99;
+      color: #000;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      width: 100%;
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .output {
+      margin-top: 20px;
+      background: #20262e;
+      padding: 20px;
+      border-radius: 8px;
+      border-left: 5px solid #00ff99;
+    }
+    .output p {
+      margin: 5px 0;
+      font-size: 16px;
+    }
+    .valid { color: #00ff99; }
+    .invalid { color: #ff4444; }
+    .copy-btn {
+      margin-top: 10px;
+      background: #00c0ff;
+      color: #000;
+      padding: 8px 12px;
+      border-radius: 5px;
+      border: none;
       cursor: pointer;
     }
   </style>
 </head>
 <body>
   <h1>CandleLogic AI</h1>
-  <div class="container">
-    <div class="candle-selection" id="candleInputs">
-      <!-- Candle boxes -->
-      <div class="candle-box" data-index="1">Candle 1</div>
-      <div class="candle-box" data-index="2">Candle 2</div>
-      <div class="candle-box" data-index="3">Candle 3</div>
-      <div class="candle-box" data-index="4">Candle 4</div>
-      <div class="candle-box" data-index="5">Candle 5</div>
-    </div>
-
-    <label class="select-label">Running Candle</label>
-    <select id="runningCandle">
+  <div class="box">
+    <label>Market Type</label>
+    <select id="market">
       <option value="">Select</option>
-      <option value="red">🔴 RED</option>
-      <option value="green">🟢 GREEN</option>
+      <option>Real Market</option>
+      <option>OTC Market</option>
     </select>
 
-    <button onclick="generateSignal()">Generate Signal</button>
+    <label>Trading Pair</label>
+    <select id="pair">
+      <option value="">Select</option>
+      <option>EUR/USD</option>
+      <option>GBP/USD</option>
+      <option>USD/JPY</option>
+      <option>BTC/USD</option>
+      <option>ETH/USD</option>
+      <option>OTC EUR/GBP</option>
+      <option>OTC USD/JPY</option>
+      <!-- Add more if needed -->
+    </select>
 
-    <div id="outputArea"></div>
+    <label>Timezone</label>
+    <select id="timezone">
+      <option value="">Select</option>
+      <option value="Asia/Dhaka">Asia/Dhaka (GMT+6)</option>
+      <option value="Asia/Kolkata">Asia/Kolkata (GMT+5:30)</option>
+      <option value="UTC">UTC</option>
+      <option value="America/New_York">America/New_York</option>
+      <option value="Europe/London">Europe/London</option>
+    </select>
+
+    <label>Candle 1</label>
+    <select id="c1"><option>Red</option><option>Green</option></select>
+
+    <label>Candle 2</label>
+    <select id="c2"><option>Red</option><option>Green</option></select>
+
+    <label>Candle 3</label>
+    <select id="c3"><option>Red</option><option>Green</option></select>
+
+    <label>Candle 4</label>
+    <select id="c4"><option>Red</option><option>Green</option></select>
+
+    <label>Candle 5</label>
+    <select id="c5"><option>Red</option><option>Green</option></select>
+
+    <label>Running Candle</label>
+    <select id="running"><option>Red</option><option>Green</option></select>
+
+    <button class="button" onclick="generateSignal()">Generate Signal</button>
+
+    <div class="output" id="output" style="display:none;">
+      <p><strong>Signal:</strong> <span id="signalText"></span></p>
+      <p><strong>Time:</strong> <span id="time"></span></p>
+      <p><strong>Status:</strong> <span id="statusText"></span></p>
+      <button class="copy-btn" onclick="copySignal()">Copy Signal</button>
+    </div>
   </div>
 
   <script>
-    const candleBoxes = document.querySelectorAll('.candle-box');
-    const candleStates = Array(5).fill(null);
-
-    candleBoxes.forEach(box => {
-      box.addEventListener('click', () => {
-        const index = parseInt(box.getAttribute('data-index')) - 1;
-        const current = candleStates[index];
-        if (current === 'red') {
-          candleStates[index] = 'green';
-          box.classList.remove('red');
-          box.classList.add('green');
-        } else if (current === 'green') {
-          candleStates[index] = null;
-          box.classList.remove('green');
-        } else {
-          candleStates[index] = 'red';
-          box.classList.add('red');
-        }
-        box.classList.toggle('active', candleStates[index] !== null);
-      });
-    });
-
     function generateSignal() {
-      const running = document.getElementById('runningCandle').value;
-      if (!running || candleStates.includes(null)) {
-        alert("Please select all candles and running candle.");
-        return;
-      }
+      const c = [1,2,3,4,5].map(i => document.getElementById('c'+i).value);
+      const running = document.getElementById('running').value;
+      const market = document.getElementById('market').value;
+      const pair = document.getElementById('pair').value;
+      const timezone = document.getElementById('timezone').value;
 
-      const redCount = candleStates.filter(c => c === 'red').length;
-      const greenCount = candleStates.filter(c => c === 'green').length;
-      const lastCandle = candleStates[4];
+      let reds = c.filter(x => x === 'Red').length;
+      let greens = c.filter(x => x === 'Green').length;
+
+      let signal = 'WAIT';
+      if (reds >= 3) signal = 'CALL';
+      if (greens >= 3) signal = 'PUT';
+
+      // Confirm last candle not same as running
+      let valid = c[4] !== running;
+
       const now = new Date();
-      const signalTime = now.toTimeString().slice(0, 5);
-      const mismatch = lastCandle === running;
-      const status = mismatch ? '❌ INVALID' : '✅ VALID';
+      const time = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
 
-      let signalType = 'WAIT';
-      if (!mismatch) {
-        signalType = redCount > greenCount ? '⬆ CALL' :
-                     greenCount > redCount ? '⬇ PUT' : 'WAIT';
-      }
+      document.getElementById('signalText').innerText = signal;
+      document.getElementById('statusText').innerText = valid ? 'VALID' : 'INVALID';
+      document.getElementById('statusText').className = valid ? 'valid' : 'invalid';
+      document.getElementById('time').innerText = time;
 
-      const outputHTML = `
-        <div class="signal-output">
-          <button class="copy-btn" onclick="copySignal(this)">Copy</button>
-          <div class="output-row"><span class="label">Signal Type</span><span class="value ${signalType.includes('CALL') ? 'call' : signalType.includes('PUT') ? 'put' : ''}">${signalType}</span></div>
-          <div class="output-row"><span class="label">Signal Time</span><span class="value"><i class="fa fa-clock"></i> ${signalTime}</span></div>
-          <div class="output-row"><span class="label">Candle Count</span><span class="value"><span class="dot red"></span> ${redCount} <span class="dot green"></span> ${greenCount}</span></div>
-          <div class="output-row"><span class="label">Running Candle</span><span class="value ${running}">${running === 'red' ? '🔴 RED' : '🟢 GREEN'}</span></div>
-          <div class="output-row"><span class="label">Status</span><span class="value ${mismatch ? 'invalid' : 'valid'}">${status}</span></div>
-        </div>
-      `;
-
-      document.getElementById('outputArea').innerHTML = outputHTML;
+      document.getElementById('output').style.display = 'block';
     }
 
-    function copySignal(btn) {
-      const text = btn.parentElement.innerText.replace("Copy", "").trim();
+    function copySignal() {
+      const signal = document.getElementById('signalText').innerText;
+      const time = document.getElementById('time').innerText;
+      const pair = document.getElementById('pair').value;
+      const text = `🟢 Signal: ${signal}\n📌 Pair: ${pair}\n⏱ Time: ${time}`;
       navigator.clipboard.writeText(text).then(() => {
-        btn.innerText = "Copied!";
-        setTimeout(() => btn.innerText = "Copy", 2000);
+        alert('Signal copied to clipboard!');
       });
     }
   </script>
