@@ -2,30 +2,105 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CandleLogic AI - Login</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CandleLogic AI – Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-box {
+      background: #ffffff10;
+      padding: 40px;
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 25px #00000055;
+      text-align: center;
+      width: 350px;
+      color: white;
+    }
+
+    .logo {
+      font-size: 36px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      width: 32px;
+      height: 32px;
+    }
+
+    .login-box input[type="password"] {
+      padding: 10px;
+      width: 80%;
+      margin: 20px auto;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    .login-box button {
+      background: #00c853;
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .login-box button:hover {
+      background: #00b344;
+    }
+
+    .footer {
+      margin-top: 15px;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    .footer a {
+      color: #00e676;
+      text-decoration: none;
+    }
+  </style>
 </head>
-<body class="bg-gray-900 text-white flex items-center justify-center h-screen font-sans">
-  <div class="bg-gray-800 p-8 rounded-xl shadow-xl w-full max-w-md text-center">
-    <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Candle Icon" class="w-20 mx-auto mb-4" />
-    <h1 class="text-2xl font-bold mb-2">🔒 Welcome to <span class="text-yellow-400">CandleLogic AI</span></h1>
-    <p class="mb-4 text-sm text-gray-300">World's Smartest 5-Candle Signal System</p>
-
-    <input id="passwordInput" type="password" placeholder="🔐 Enter Your Password..." class="w-full p-3 rounded bg-gray-700 border border-gray-600 mb-4 focus:outline-none focus:ring-2 focus:ring-yellow-400">
-
-    <button onclick="checkPassword()" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-6 rounded-full transition">🔓 Unlock Access</button>
-
-    <p class="mt-6 text-sm text-gray-400">Need password? Contact 👉 <a href="https://t.me/QXParvej" class="text-yellow-300 underline">@QXParvej</a></p>
+<body>
+  <div class="login-box">
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/4743/4743094.png" alt="Candle Icon">
+      CandleLogic AI
+    </div>
+    <p style="margin-top: 20px; font-weight: 500;">🔒 Enter Password to Continue</p>
+    <input type="password" id="password" placeholder="Enter password...">
+    <br />
+    <button onclick="checkPassword()">Login</button>
+    <div class="footer">
+      Need access? Contact <a href="https://t.me/QXParvej" target="_blank">@QXParvej</a>
+    </div>
   </div>
 
   <script>
     function checkPassword() {
-      const password = document.getElementById("passwordInput").value;
-      if (password === "11115") {
+      const correctPassword = "11115";
+      const userPassword = document.getElementById("password").value;
+      if (userPassword === correctPassword) {
         window.location.href = "signal.html";
       } else {
-        alert("Incorrect password. Please try again.");
+        alert("Incorrect password! Please try again.");
       }
     }
   </script>
