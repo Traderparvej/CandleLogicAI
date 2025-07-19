@@ -96,10 +96,10 @@
 
   <div class="section">
     <label>Market</label>
-    <select id="market">
-      <option>Binary</option>
-      <option>OTC</option>
-      <option>Real</option>
+    <select id="market" onchange="loadPairs()">
+      <option value="binary">Binary</option>
+      <option value="otc">OTC</option>
+      <option value="real">Real</option>
     </select>
 
     <label>Timezone</label>
@@ -111,10 +111,7 @@
 
     <label>Pair</label>
     <select id="pair">
-      <option>EUR/USD</option>
-      <option>GBP/JPY</option>
-      <option>USD/JPY</option>
-      <option>AUD/CHF</option>
+      <!-- dynamically filled -->
     </select>
   </div>
 
@@ -171,6 +168,37 @@
   </div>
 
   <script>
+    const otcPairs = [
+      "EUR/USD (OTC)", "GBP/USD (OTC)", "USD/JPY (OTC)", "AUD/CHF (OTC)",
+      "AUD/USD (OTC)", "NZD/USD (OTC)", "USD/CHF (OTC)", "USD/CAD (OTC)", "GBP/JPY (OTC)"
+    ];
+
+    const realPairs = [
+      "EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "NZD/USD", "USD/CHF", "USD/CAD", "GBP/JPY", "AUD/CHF"
+    ];
+
+    function loadPairs() {
+      const market = document.getElementById("market").value;
+      const pairSelect = document.getElementById("pair");
+
+      let pairs = [];
+      if (market === "otc") {
+        pairs = otcPairs;
+      } else if (market === "real") {
+        pairs = realPairs;
+      } else {
+        pairs = ["EUR/USD", "GBP/JPY", "USD/JPY", "AUD/CHF"]; // default Binary pairs
+      }
+
+      pairSelect.innerHTML = "";
+      pairs.forEach(pair => {
+        const opt = document.createElement("option");
+        opt.value = pair;
+        opt.textContent = pair;
+        pairSelect.appendChild(opt);
+      });
+    }
+
     function generateSignal() {
       const candles = ["c1","c2","c3","c4","c5"].map(id => document.getElementById(id).value);
       const running = document.getElementById("running").value;
@@ -203,6 +231,9 @@
       const text = document.getElementById("signalOutput").innerText;
       navigator.clipboard.writeText(text).then(() => alert("Signal copied!"));
     }
+
+    // First load default pairs
+    loadPairs();
   </script>
 
 </body>
