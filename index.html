@@ -3,84 +3,89 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CandleLogicAI - Signal</title>
+  <title>CandleLogicAI – Signal Panel</title>
   <style>
     body {
       margin: 0;
+      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
       background: #0f172a;
       color: #f1f5f9;
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      padding: 20px;
     }
 
     .container {
-      max-width: 620px;
+      max-width: 680px;
       margin: auto;
       background: #1e293b;
       padding: 30px;
       border-radius: 16px;
-      box-shadow: 0 0 30px rgba(0,200,255,0.08);
+      box-shadow: 0 0 25px rgba(0,200,255,0.1);
     }
 
     h2 {
-      color: #facc15;
       text-align: center;
-      font-size: 26px;
-      margin-bottom: 6px;
+      color: #facc15;
+      font-size: 28px;
     }
 
     .subtitle {
       text-align: center;
       color: #38bdf8;
-      margin-top: 0;
-      font-size: 16px;
-      font-weight: 500;
-    }
-
-    .step {
-      text-align: center;
-      color: #f87171;
-      margin-top: 8px;
       font-size: 15px;
-      margin-bottom: 20px;
-    }
-
-    .divider {
-      border-top: 1px solid #334155;
-      border-bottom: 1px solid #334155;
-      margin: 25px 0;
-      padding: 15px 0;
-    }
-
-    .signal-line {
-      font-size: 17px;
-      padding: 4px 0;
-      letter-spacing: 0.3px;
+      margin-top: -10px;
     }
 
     .rule {
       text-align: center;
-      font-size: 15px;
-      margin-top: 20px;
       color: #a3e635;
-      line-height: 1.5;
+      margin-top: 20px;
+      font-size: 15px;
     }
 
-    .rule span {
-      color: #ffffff;
+    textarea {
+      width: 100%;
+      padding: 15px;
+      font-size: 15px;
+      background: #0f172a;
+      border: 1px solid #334155;
+      color: #f8fafc;
+      border-radius: 10px;
+      resize: vertical;
+      margin-top: 20px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 12px;
+      font-size: 16px;
+      width: 100%;
+      background: #0ea5e9;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #0284c7;
+    }
+
+    .output-box {
+      background: #0f172a;
+      border: 1px solid #334155;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 25px;
+      white-space: pre-wrap;
+      font-size: 16px;
     }
 
     .footer {
-      margin-top: 30px;
+      text-align: center;
+      margin-top: 40px;
       font-size: 13px;
       color: #64748b;
-      text-align: center;
-    }
-
-    @media(max-width: 600px){
-      .container {
-        padding: 20px;
-      }
     }
   </style>
 </head>
@@ -89,22 +94,43 @@
   <div class="container">
     <h2>🔥 CandleLogicAI Signal 🔥</h2>
     <p class="subtitle">⌛ 1-Minute Trade | UTC+06:00</p>
-    <p class="step">✘ ১ Step MTG</p>
+    
+    <textarea id="signalInput" rows="6" placeholder="〆 HH:MM: PAIR-NAME eg. 〆 18:25: AUD/CAD..."></textarea>
+    
+    <button onclick="generateSignal()">✅ Generate Signal</button>
 
-    <div class="divider">
-      <p class="signal-line">〆 18:13: GBP/NZD</p>
-      <p class="signal-line">〆 18:18: USD/JPY</p>
-      <p class="signal-line">〆 18:20: EUR/AUD</p>
-      <p class="signal-line">〆 18:21: GBP/USD</p>
-      <p class="signal-line">〆 18:25: AUD/CAD</p>
+    <div class="output-box" id="signalOutput">
+      <!-- Signal will appear here -->
     </div>
 
-    <p class="rule">⚡ নিয়মঃ <span>উল্লেখিত সময়ের আগের ক্যান্ডেলের দিকেই ট্রেড করুন।</span> ❤️</p>
+    <p class="rule">⚡ নিয়মঃ উল্লেখিত সময়ের আগের ক্যান্ডেলের দিকেই ট্রেড করুন। ❤️</p>
   </div>
 
   <div class="footer">
     Powered by @QXParvej | CandleLogicAI 2025
   </div>
+
+  <script>
+    function generateSignal() {
+      const input = document.getElementById('signalInput').value.trim();
+      const lines = input.split('\n').filter(line => line.trim() !== '');
+
+      if (lines.length === 0) {
+        document.getElementById('signalOutput').innerText = "❗ Please enter at least one signal.";
+        return;
+      }
+
+      let output = `🔥 CandleLogicAI Signal 🔥\n⌛ 1-Minute Trade | UTC+06:00\n✘ ১ Step MTG\n\n───────────────\n\n`;
+
+      lines.forEach(line => {
+        output += line.trim() + '\n';
+      });
+
+      output += `\n───────────────\n\n⚡ Rule:\nউল্লেখিত সময়ের আগের ক্যান্ডেলের দিকেই ট্রেড করুন। ❤️`;
+
+      document.getElementById('signalOutput').innerText = output;
+    }
+  </script>
 
 </body>
 </html>
