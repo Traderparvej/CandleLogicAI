@@ -1,131 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CandleLogic AI – Login</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CandleLogicAI - Signal</title>
   <style>
     body {
       margin: 0;
-      font-family: sans-serif;
-      background: #0b0f15;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      background: #0f172a;
+      color: #f1f5f9;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
     }
-    .box {
-      background: rgba(255,255,255,0.05);
-      padding: 30px;
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #1e293b;
+      padding: 25px;
       border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 0 20px rgba(0,200,150,0.3);
-      width: 360px;
+      box-shadow: 0 0 25px rgba(0,200,255,0.1);
     }
-    .candles {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
+
+    h2 {
+      color: #facc15;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #38bdf8;
+      margin-top: 0;
+      font-size: 16px;
+    }
+
+    .step {
+      text-align: center;
+      color: #f87171;
       margin-bottom: 20px;
     }
-    .candle {
-      width: 14px;
-      height: 40px;
-      position: relative;
-      border-radius: 3px;
-      animation: move 1s ease-in-out infinite alternate;
+
+    .divider {
+      border-top: 1px solid #334155;
+      border-bottom: 1px solid #334155;
+      margin: 20px 0;
+      padding: 10px 0;
     }
-    .green {
-      background: #00e676;
-    }
-    .red {
-      background: #ff3d00;
-      animation-delay: -0.5s;
-    }
-    .wick {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 2px;
-      background: #000;
-    }
-    .wick.top {
-      top: -10px;
-      height: 10px;
-    }
-    .wick.bottom {
-      bottom: -10px;
-      height: 10px;
-    }
-    @keyframes move {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-5px); }
-    }
-    h1 {
-      font-size: 24px;
-      color: #38bdf8;
-      margin: 0 0 10px;
-    }
-    h1 span {
-      color: #facc15;
-    }
-    p {
-      margin: 5px 0;
-    }
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 15px 0;
-      border: none;
-      border-radius: 6px;
+
+    .signal-line {
+      margin: 8px 0;
       font-size: 16px;
     }
-    button {
-      width: 100%;
-      padding: 10px;
-      background: #0ea5e9;
-      border: none;
-      border-radius: 6px;
-      color: #fff;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
+
+    .rule {
+      text-align: center;
+      font-size: 15px;
+      margin-top: 20px;
+      color: #a3e635;
     }
-    button:hover {
-      background: #0284c7;
+
+    .rule span {
+      color: #ffffff;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 13px;
+      color: #64748b;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <div class="box">
-    <div class="candles">
-      <div class="candle green">
-        <div class="wick top"></div>
-        <div class="wick bottom"></div>
-      </div>
-      <div class="candle red">
-        <div class="wick top"></div>
-        <div class="wick bottom"></div>
-      </div>
+
+  <div class="container">
+    <h2>🔥 CandleLogicAI Signal 🔥</h2>
+    <p class="subtitle">⌛ 1-Minute Trade | UTC+06:00</p>
+    <p class="step">✘ ১ Step MTG</p>
+
+    <div class="divider">
+      <p class="signal-line">〆 18:13: GBP/NZD</p>
+      <p class="signal-line">〆 18:18: USD/JPY</p>
+      <p class="signal-line">〆 18:20: EUR/AUD</p>
+      <p class="signal-line">〆 18:21: GBP/USD</p>
+      <p class="signal-line">〆 18:25: AUD/CAD</p>
     </div>
-    <h1>CandleLogic <span>AI</span></h1>
-    <p>Real-Time Signal, Real Profit – Powered by AI</p>
-    <form onsubmit="return checkPass()">
-      <input type="password" id="pw" placeholder="🔒 Enter Password" required>
-      <button type="submit">Login</button>
-    </form>
-    <p>🔐 To get the password, contact 👉 <strong>@QXParvej</strong></p>
+
+    <p class="rule">⚡ নিয়মঃ <span>উল্লেখিত সময়ের আগের ক্যান্ডেলের দিকেই ট্রেড করুন।</span> ❤️</p>
   </div>
 
-  <script>
-    function checkPass() {
-      if (document.getElementById('pw').value === '11115') {
-        window.location.href = 'signal.html';
-        return false;
-      }
-      alert('❌ Wrong Password!');
-      return false;
-    }
-  </script>
+  <div class="footer">
+    Powered by @QXParvej | CandleLogicAI 2025
+  </div>
+
 </body>
 </html>
