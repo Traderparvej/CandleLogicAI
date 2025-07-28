@@ -1,136 +1,350 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CandleLogicAI – Signal Panel</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 20px;
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      background: #0f172a;
-      color: #f1f5f9;
-    }
-
-    .container {
-      max-width: 680px;
-      margin: auto;
-      background: #1e293b;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 25px rgba(0,200,255,0.1);
-    }
-
-    h2 {
-      text-align: center;
-      color: #facc15;
-      font-size: 28px;
-    }
-
-    .subtitle {
-      text-align: center;
-      color: #38bdf8;
-      font-size: 15px;
-      margin-top: -10px;
-    }
-
-    .rule {
-      text-align: center;
-      color: #a3e635;
-      margin-top: 20px;
-      font-size: 15px;
-    }
-
-    textarea {
-      width: 100%;
-      padding: 15px;
-      font-size: 15px;
-      background: #0f172a;
-      border: 1px solid #334155;
-      color: #f8fafc;
-      border-radius: 10px;
-      resize: vertical;
-      margin-top: 20px;
-    }
-
-    button {
-      margin-top: 15px;
-      padding: 12px;
-      font-size: 16px;
-      width: 100%;
-      background: #0ea5e9;
-      border: none;
-      border-radius: 8px;
-      color: white;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background: #0284c7;
-    }
-
-    .output-box {
-      background: #0f172a;
-      border: 1px solid #334155;
-      padding: 20px;
-      border-radius: 10px;
-      margin-top: 25px;
-      white-space: pre-wrap;
-      font-size: 16px;
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 13px;
-      color: #64748b;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Real Time AI Signal - Login Protected</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f0f2f5, #d9dbe0);
+    color: #222;
+    padding: 20px;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 28px;
+    font-weight: 800;
+    color: #00796b;
+  }
+  .box {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    color: #222;
+  }
+  label.title {
+    font-weight: 700;
+    font-size: 16px;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .pairs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+    background: #f9f9f9;
+  }
+  .pairs label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #e0f2f1;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #004d40;
+  }
+  .pairs input {
+    accent-color: #00796b;
+    width: 18px;
+    height: 18px;
+  }
+  select, input[type=number], input[type=password] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-bottom: 12px;
+    font-size: 16px;
+    background: #fff;
+    color: #222;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  select:focus, input[type=number]:focus, input[type=password]:focus {
+    border-color: #00796b;
+    box-shadow: 0 0 5px #00796b;
+  }
+  select option {
+    background: #fff;
+    color: #222;
+  }
+  button {
+    background: #00796b;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 700;
+    margin-right: 10px;
+    transition: background 0.2s;
+  }
+  button:hover {
+    background: #004d40;
+  }
+  pre {
+    background: #f0f0f0;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 15px;
+    line-height: 1.5;
+    white-space: pre-line;
+    overflow-x: auto;
+    color: #333;
+    border: 1px solid #ccc;
+  }
+  #loginModal {
+    position: fixed;
+    top: 0; left: 0; right:0; bottom: 0;
+    background: rgba(255,255,255,0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  #loginBox {
+    background: #ffffff;
+    padding: 30px 25px;
+    border-radius: 12px;
+    width: 340px;
+    box-shadow: 0 0 20px #00796b88;
+    text-align: center;
+    color: #004d40;
+  }
+  #loginBox h2 {
+    margin-bottom: 15px;
+    color: #00796b;
+    font-weight: 700;
+  }
+  #loginBox p {
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: #00695c;
+  }
+  #loginBox input[type=password] {
+    font-size: 18px;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    color: #004d40;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  #loginBox input[type=password]:focus {
+    border-color: #00796b;
+    box-shadow: 0 0 5px #00796b;
+  }
+  #loginBox button {
+    width: 100%;
+  }
+  #errorMsg {
+    color: #d32f2f;
+    margin-top: 10px;
+    font-weight: 700;
+    display: none;
+  }
+</style>
 </head>
 <body>
 
-  <div class="container">
-    <h2>🔥 CandleLogicAI Signal 🔥</h2>
-    <p class="subtitle">⌛ 1-Minute Trade | UTC+06:00</p>
-    
-    <textarea id="signalInput" rows="6" placeholder="〆 HH:MM: PAIR-NAME eg. 〆 18:25: AUD/CAD..."></textarea>
-    
-    <button onclick="generateSignal()">✅ Generate Signal</button>
-
-    <div class="output-box" id="signalOutput">
-      <!-- Signal will appear here -->
-    </div>
-
-    <p class="rule">⚡ নিয়মঃ উল্লেখিত সময়ের আগের ক্যান্ডেলের দিকেই ট্রেড করুন। ❤️</p>
+<!-- Login Modal -->
+<div id="loginModal">
+  <div id="loginBox">
+    <h2>Login Required</h2>
+    <p>Real Time AI Signal password নিতে যোগাযোগ করুন <br><strong>@QXParvej</strong></p>
+    <input type="password" id="loginPassword" placeholder="Enter Password" autocomplete="off" />
+    <button id="loginBtn">Login</button>
+    <div id="errorMsg">Incorrect password, try again.</div>
   </div>
+</div>
 
-  <div class="footer">
-    Powered by @QXParvej | CandleLogicAI 2025
-  </div>
+<!-- Main Content -->
+<div id="mainContent" style="display:none;">
+<h1>Real Time AI Signal</h1>
 
-  <script>
-    function generateSignal() {
-      const input = document.getElementById('signalInput').value.trim();
-      const lines = input.split('\n').filter(line => line.trim() !== '');
+<div class="box">
+  <label class="title">Select Market Type:</label>
+  <select id="market-type">
+    <option value="otc-random">OTC Random</option>
+    <option value="real-random">Real Market Random</option>
+    <option value="custom">Custom Pairs</option>
+  </select>
+</div>
 
-      if (lines.length === 0) {
-        document.getElementById('signalOutput').innerText = "❗ Please enter at least one signal.";
-        return;
-      }
+<div class="box" id="pair-box">
+  <label class="title">Select Asset(s):</label>
+  <div class="pairs" id="pair-container"></div>
+</div>
 
-      let output = `🔥 CandleLogicAI Signal 🔥\n⌛ 1-Minute Trade | UTC+06:00\n✘ ১ Step MTG\n\n───────────────\n\n`;
+<div class="box">
+  <label class="title">Timeframe (minutes):</label>
+  <select id="timeframe-select">
+    <option value="1">01:00</option>
+    <option value="2">02:00</option>
+    <option value="5">05:00</option>
+  </select>
 
-      lines.forEach(line => {
-        output += line.trim() + '\n';
-      });
+  <label class="title">Number of Signals:</label>
+  <input type="number" id="signal-count" value="10" min="1" max="30">
 
-      output += `\n───────────────\n\n⚡ Rule:\nউল্লেখিত সময়ের আগের ক্যান্ডেলের দিকেই ট্রেড করুন। ❤️`;
+  <button id="generate">Generate Signals</button>
+  <button id="copy">Copy All</button>
+  <button id="reset">Reset</button>
+</div>
 
-      document.getElementById('signalOutput').innerText = output;
+<div class="box">
+  <label class="title">Generated Signals:</label>
+  <pre id="output"></pre>
+</div>
+</div>
+
+<script>
+const otcPairs = [
+  "AUD/CAD (OTC)", "AUD/CHF (OTC)", "AUD/JPY (OTC)", "AUD/NZD (OTC)", "AUD/USD (OTC)",
+  "CAD/CHF (OTC)", "CAD/JPY (OTC)", "CHF/JPY (OTC)", "EUR/AUD (OTC)", "EUR/CAD (OTC)",
+  "EUR/CHF (OTC)", "EUR/GBP (OTC)", "EUR/JPY (OTC)", "EUR/NZD (OTC)", "EUR/USD (OTC)",
+  "GBP/AUD (OTC)", "GBP/CAD (OTC)", "GBP/CHF (OTC)", "GBP/JPY (OTC)", "GBP/NZD (OTC)",
+  "GBP/USD (OTC)", "NZD/CAD (OTC)", "NZD/CHF (OTC)", "NZD/JPY (OTC)", "NZD/USD (OTC)",
+  "USD/CAD (OTC)", "USD/CHF (OTC)", "USD/JPY (OTC)",
+
+  // ✅ Newly added OTC pairs
+  "USD/BRL (OTC)", "USD/PKR (OTC)", "USD/ARS (OTC)", "USD/TRY (OTC)", "EUR/SGD (OTC)",
+  "USD/INR (OTC)", "USD/COP (OTC)", "USD/EGP (OTC)", "USD/PHP (OTC)", "USD/BDT (OTC)",
+  "USD/NGN (OTC)", "USD/DZD (OTC)", "USD/IDR (OTC)", "USD/MXN (OTC)", "USD/ZAR (OTC)"
+];
+
+const realPairs = [
+  "EUR/USD","GBP/USD","USD/JPY","USD/CHF","AUD/USD",
+  "NZD/USD","EUR/GBP","EUR/JPY","GBP/JPY","USD/CAD",
+  "EUR/AUD","GBP/CAD","AUD/CAD","AUD/JPY","CAD/JPY",
+  "CHF/JPY","NZD/JPY","EUR/NZD","GBP/NZD","AUD/NZD"
+];
+
+const marketTypeSelect = document.getElementById('market-type');
+const pairContainer = document.getElementById('pair-container');
+const pairBox = document.getElementById('pair-box');
+const output = document.getElementById('output');
+
+function renderPairs(list) {
+  pairContainer.innerHTML = '';
+  list.forEach(p => {
+    const lbl = document.createElement('label');
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.value = p;
+    lbl.appendChild(cb);
+    lbl.appendChild(document.createTextNode(p));
+    pairContainer.appendChild(lbl);
+  });
+}
+
+function handleMarketChange() {
+  const type = marketTypeSelect.value;
+  if(type === 'custom') {
+    pairBox.style.display = 'block';
+    renderPairs([...otcPairs, ...realPairs]);
+  } else {
+    pairBox.style.display = 'none';
+  }
+}
+marketTypeSelect.addEventListener('change', handleMarketChange);
+handleMarketChange();
+
+function formatTime(date) {
+  let h = date.getHours().toString().padStart(2,'0');
+  let m = date.getMinutes().toString().padStart(2,'0');
+  return `${h}:${m}`;
+}
+
+document.getElementById('generate').onclick = () => {
+  const marketType = marketTypeSelect.value;
+  const tf = document.getElementById('timeframe-select').value;
+  const count = parseInt(document.getElementById('signal-count').value);
+
+  let pairList = [];
+  if(marketType === 'otc-random') {
+    pairList = otcPairs;
+  } else if(marketType === 'real-random') {
+    pairList = realPairs;
+  } else {
+    const checked = [...pairContainer.querySelectorAll('input:checked')].map(cb=>cb.value);
+    if(checked.length === 0){
+      alert('Select at least one pair');
+      return;
     }
-  </script>
+    pairList = checked;
+  }
 
+  let base = new Date();
+  base.setSeconds(0,0);
+
+  let out = `♧ 𝗔𝗜 𝗦𝗜𝗚𝗡𝗔𝗟 – ${tf} 𝗠𝗶𝗻𝘂𝘁𝗲 𝗧𝗿𝗮𝗱𝗲\n✘ 𝟭 𝗦𝘁𝗲𝗽 𝗠𝗧𝗚 | ⏰ 𝗨𝗧𝗖 +𝟬𝟲:𝟬𝟬 ✘\n\n╔════ ≪•◦ ❈ ◦•≫ ════╗\n🧠 Opposite Candle Strategy:\nযে সময় উল্লেখ আছে তার আগের ক্যান্ডেল যা হবে, তার বিপরীতে ট্রেড নিন ❤️\n╚════ ≪•◦ ❈ ◦•≫ ════╝\n\n`;
+
+  for(let i=0;i<count;i++){
+    base = new Date(base.getTime() + (Math.floor(Math.random()*5)+1)*60000);
+    const pair = pairList[Math.floor(Math.random()*pairList.length)];
+    out += `➤ ${formatTime(base)} – ${pair}\n`;
+  }
+
+  out += `\n🛡 Trade Smart. Stay Disciplined.`;
+  output.textContent = out;
+};
+
+document.getElementById('copy').onclick = () => {
+  navigator.clipboard.writeText(output.textContent)
+    .then(()=>alert('✅ Signals copied!'))
+    .catch(()=>alert('Copy failed!'));
+};
+
+document.getElementById('reset').onclick = () => {
+  output.textContent = '';
+  document.getElementById('signal-count').value = 10;
+  document.getElementById('timeframe-select').value = '1';
+  marketTypeSelect.value = 'otc-random';
+  handleMarketChange();
+  pairContainer.querySelectorAll('input:checked').forEach(cb=>cb.checked=false);
+};
+
+// LOGIN SYSTEM
+const CORRECT_PASSWORD = "@Ai100";
+const loginModal = document.getElementById('loginModal');
+const loginBtn = document.getElementById('loginBtn');
+const loginPassword = document.getElementById('loginPassword');
+const errorMsg = document.getElementById('errorMsg');
+const mainContent = document.getElementById('mainContent');
+
+loginBtn.addEventListener('click', () => {
+  if(loginPassword.value === CORRECT_PASSWORD) {
+    loginModal.style.display = 'none';
+    mainContent.style.display = 'block';
+    errorMsg.style.display = 'none';
+    loginPassword.value = '';
+  } else {
+    errorMsg.style.display = 'block';
+  }
+});
+
+loginPassword.addEventListener('keypress', e => {
+  if(e.key === 'Enter'){
+    loginBtn.click();
+  }
+});
+</script>
 </body>
 </html>
